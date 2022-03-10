@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EndFlag : MonoBehaviour
 {
     public PolygonCollider2D FlagCollider;
-    public CircleCollider2D PlayerCollider;
+    public BoxCollider2D PlayerCollider;
     void Update()
     {
         if (PlayerCollider.IsTouching(FlagCollider))

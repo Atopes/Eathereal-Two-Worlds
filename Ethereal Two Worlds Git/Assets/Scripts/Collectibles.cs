@@ -4,7 +4,7 @@ using UnityEngine;
 public class Collectibles : MonoBehaviour
 {
     public GameObject CollectiblesParentObject; //Object containing all the collectibles
-    public CircleCollider2D playerColision; //Player physical collider
+    public BoxCollider2D playerColision; //Player physical collider
     List<GameObject> coins; //List of all the coins in the scene
     private CircleCollider2D coinCollision; //Coin trigger collider variable
     private int CollectiblesCount; // Count of coins 
