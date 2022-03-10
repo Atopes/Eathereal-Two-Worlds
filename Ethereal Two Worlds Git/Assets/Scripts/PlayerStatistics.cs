@@ -4,21 +4,10 @@ using UnityEngine;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    public static int healthPoints=3,currentHP=3,coins=0;
-    public HealthBar healthBar;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void takeDamage(int health)
-    {
-        currentHP -= health;
-        healthBar.SetHealth(currentHP);
+    public static int healthPoints=3,currentHP=3,coins=0; //Different values
+    public HealthBar healthBar; // Reference to the Health Bar script
+    public void takeDamage(int health){ // Method to deal damage to the player
+        currentHP -= health; 
+        healthBar.SetHealth(currentHP); // Setting health bar to the new current hp value 
     }
 }
