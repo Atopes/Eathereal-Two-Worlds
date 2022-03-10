@@ -8,6 +8,8 @@ public class Collectibles : MonoBehaviour
     List<GameObject> coins; //List of all the coins in the scene
     private CircleCollider2D coinCollision; //Coin trigger collider variable
     private int CollectiblesCount; // Count of coins 
+    public PlayerStatistics playerStatistics;
+    public UIController uiController;
     void Start()
     {
         // Just finding and adding all coins into the List for later use
@@ -26,6 +28,7 @@ public class Collectibles : MonoBehaviour
             coinCollision = coins[i].GetComponent<CircleCollider2D>(); // Fetching coin trigger collider , why? Shit doesn't work without it .
             if (playerColision.IsTouching(coinCollision)) //Actually checking for the collision
             {
+                uiController.SetCoins(1);
                 Destroy(coins[i]); //Destroying the object in the scene
                 coins.Remove(coins[i]); //Removing the coins from the List after being picked up
                 CollectiblesCount--; // Reducing the count of collectibles after destroying them
