@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
@@ -5,7 +6,13 @@ public class PlayerMovement : MonoBehaviour
     public float JumpForce = 2f;
     public Rigidbody2D PlayerRigidBody; // Player's rigid body
     Vector2 movement; // Variable for declaring movement on X & Y axis
-    public CircleCollider2D playerColision; // Player's physicall collider
+    public BoxCollider2D playerColision; // Player's physicall collider
+    public GameObject player;
+    private bool isDashing = false;
+    private void Start()
+    {
+        
+    }
     void Update()
     {
         //Getting X & Y axis input (WASD / arrow keys)
@@ -17,5 +24,23 @@ public class PlayerMovement : MonoBehaviour
             PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse); // Adding a force that makes the player jump
         }
         transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Updating player's position
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && movement.x != 0)
+        {
+            if (!isDashing) { 
+            player.transform.localScale = new Vector3((float)1.6, 1, 1);
+                isDashing = true;
+            StartCoroutine(Dash());
+
+        }
+        }
+        
     }
+    IEnumerator Dash()
+    {
+        yield return new WaitForSeconds(1f);
+        player.transform.localScale = new Vector3(1,(float) 1.6, 1);
+        isDashing = false;
+    }
+
 }
