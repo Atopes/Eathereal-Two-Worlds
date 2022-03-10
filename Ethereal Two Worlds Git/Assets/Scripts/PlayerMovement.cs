@@ -28,19 +28,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && movement.x != 0)
         {
             if (!isDashing) { 
-            player.transform.localScale = new Vector3((float)1.6, 1, 1);
+                player.transform.localScale = new Vector3((float)1.6, 1, 1);
+                PlayerRigidBody.gravityScale = 6;
                 isDashing = true;
-            StartCoroutine(Dash());
-
+                StartCoroutine(Dash());
+            }
         }
-        }
-        
     }
     IEnumerator Dash()
     {
         yield return new WaitForSeconds(1f);
         player.transform.localScale = new Vector3(1,(float) 1.6, 1);
+        PlayerRigidBody.gravityScale = 4;
         isDashing = false;
     }
-
 }

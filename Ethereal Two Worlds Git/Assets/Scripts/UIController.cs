@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public TextMeshProUGUI coinsText;
     void Start()
     {
-        
+        coinsText.text = PlayerStatistics.coins + "";
     }
-
-    // Update is called once per frame
     void Update()
     {
         
     }
     public void RestartLevel()
     {
+        PlayerStatistics.currentHP = PlayerStatistics.healthPoints;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Reloads current Level
+    }
+    public void SetCoins(int addedAmount)
+    {
+        PlayerStatistics.coins += addedAmount;
+        coinsText.text = PlayerStatistics.coins + "";
     }
 }
