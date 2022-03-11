@@ -22,6 +22,7 @@ public class HealthBar : MonoBehaviour
     public void SetHealth(int health){
         slider.value = health; //Setting the value displayed on the slider to the current health
         if (PlayerStatistics.currentHP <= 0){ // Do something if hp is <= then 0
+            PlayerStatistics.currentHP = 0;
             Debug.Log("YOU DIED");
         }
         healthText.text =PlayerStatistics.currentHP+"/"+ PlayerStatistics.healthPoints; //Setting the text displayed in the hp bar
