@@ -40,8 +40,7 @@ public class WorldsControl : MonoBehaviour
                 RedObjects[i].GetComponent<SpriteRenderer>().color = redTransparent; // Sets red colors transparency to 10%
             }
             isRedUp = false;
-        }
-        if (Input.GetKeyDown(KeyCode.R) && !isRedUp){ //Checking for E input and if red objects are down
+        }else if (Input.GetKeyDown(KeyCode.E) && !isRedUp){ //Checking for E input and if red objects are down
             for (int i = 0; i < blueCount; i++){
                 BlueObjects[i].GetComponent<BoxCollider2D>().enabled =false; // Disables collison with blue object colliders
                 BlueObjects[i].GetComponent<SpriteRenderer>().color = blueTransparent; // Sets blue colors transparency to 10 %
