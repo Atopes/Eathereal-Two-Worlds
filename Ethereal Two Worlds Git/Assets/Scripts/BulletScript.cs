@@ -24,10 +24,10 @@ public class BulletScript : MonoBehaviour{
         if (bulletCollider.IsTouchingLayers(1 << layerPlatforms) || bulletCollider.IsTouchingLayers(1 << layerWalls)){ //Checking for the collision with Walls,Platforms Layers
             Destroy(gameObject); //Destroying bullet on contact
         }
-        if (bulletCollider.IsTouchingLayers(1 << layerDamageable)) {
-            Collider2D detectedCollider = Physics2D.OverlapCircle(bulletCollider.transform.position,(float) 0.1);
-            detectedCollider.gameObject.SendMessage("TakeDamage",bulletDamage);
-            Destroy(gameObject);
+        if (bulletCollider.IsTouchingLayers(1 << layerDamageable)) { // Checks if bullet hits something damageable - boxes for example
+            Collider2D detectedCollider = Physics2D.OverlapCircle(bulletCollider.transform.position,(float) 0.1); // Gets the reference to the damageable object
+            detectedCollider.gameObject.SendMessage("TakeDamage",bulletDamage); // Activates "TakeDamage" method on the found objects
+            Destroy(gameObject); // Destroys bullet on contact
         }
         transform.position += new Vector3(xMovement, 0, 0) * Time.deltaTime * bulletSpeed; //Changing the bullets position in the world space
     }
