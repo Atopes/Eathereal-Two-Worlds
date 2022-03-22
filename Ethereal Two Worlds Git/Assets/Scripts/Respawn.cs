@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Respawn : MonoBehaviour {
-    public GameObject particles;
-    public GameObject player;
-    public HealthBar healthBar;
-    public BoxCollider2D respawnPointCollider, PlayerCollider;
-    private Vector3 RespawnPointLocation;
+    public GameObject particles; // Reference to the paricles game object
+    public GameObject player; // Reference to the player object
+    public HealthBar healthBar; // Reference to the healthBar script
+    public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
+    private Vector3 RespawnPointLocation; // World position of the players respawn point
     private void Start() {
-        RespawnPointLocation = gameObject.transform.position;
+        RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
     }
     private void Update() {
-        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(KeyCode.O)) {
+        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(KeyCode.O)) { // Checks if player is touching the respawn point
             UpdateRespawnPoint();
             SetHpToMax();
-            Instantiate(particles,gameObject.transform);
+            Instantiate(particles,gameObject.transform); // Starts the paricle effect
         }
     }
     private void UpdateRespawnPoint() {
-        PlayerStatistics.PlayerRespawnPoint = RespawnPointLocation;
+        PlayerStatistics.PlayerRespawnPoint = RespawnPointLocation;  // Sets the players respawn point to new position
     }
     public void RespawnPlayer() {
-        player.transform.position = PlayerStatistics.PlayerRespawnPoint;
-        SetHpToMax();
-        Instantiate(particles, gameObject.transform);
+        player.transform.position = PlayerStatistics.PlayerRespawnPoint; // Changes players current location
+        SetHpToMax(); // Sets players hp to maximum
+        Instantiate(particles, gameObject.transform); // Starts the particle effect
     }
-    private void SetHpToMax()
-    {
+    private void SetHpToMax(){ // Sets players hp to maximum
         PlayerStatistics.currentHP = PlayerStatistics.healthPoints;
         healthBar.healthText.text = PlayerStatistics.currentHP + "/" + PlayerStatistics.healthPoints;
         healthBar.slider.value = PlayerStatistics.currentHP;

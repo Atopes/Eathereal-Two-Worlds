@@ -6,13 +6,13 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
-    public Respawn respawn;
+    public Respawn respawn; // Reference to the respawn script
     public TextMeshProUGUI coinsText; // Reference to the text displayed next to the coin symbol
     void Start() {
         coinsText.text = PlayerStatistics.coins + ""; // Setting the correct number of player's coins on reload and start
     }
     public void RestartLevel(){
-        respawn.RespawnPlayer();
+        respawn.RespawnPlayer(); // Respawns player
     }
     public void SetCoins(int addedAmount){
         PlayerStatistics.coins += addedAmount; // Adds coins to the player

@@ -6,21 +6,21 @@ public class PlayerMovement : MonoBehaviour{
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-    public CircleCollider2D playerMeleeCollider;
-    public SpriteRenderer slashSprite;
+    public CircleCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
+    public SpriteRenderer slashSprite; // Reference to the slash sprite
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
-    public ParticleSystem DashParticle;
+    public ParticleSystem DashParticle; // Reference to the dash particle
     private bool isDashing = false,isShooting=false,isGrounded=true,isAttacking = false; 
     public static bool isFacingRight = true, canDoubleJump = false,canWallJump = false;
     private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects;
-    private Vector3 playerScale;
-    private Collider2D colliderC;
+    private Vector3 playerScale; // Local scale of the player used for flipping
+    private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     private void Start(){
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
-        layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects");
-        playerScale = player.transform.localScale;
+        layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
+        playerScale = player.transform.localScale; // Defines players starting local scale
     }
     void Update(){
         //Getting X & Y axis input (WASD / arrow keys)
@@ -42,26 +42,26 @@ public class PlayerMovement : MonoBehaviour{
                 PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse); // Jumps again
                 extrajumps--; 
             }
-            if (canWallJump){ // Checking if player can wall jump
-                if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(KeyCode.Space)){ // Checking if player is next to a wall
-                    isGrounded = true; // Making him grounded = resseting his extra jumps
-                }
-            }
             if (isGrounded){
                 extrajumps = 1; // Resseting extra jumps if player touches ground 
-                coyoteTimeCounter = coyoteTime;
+                coyoteTimeCounter = coyoteTime; // Resets coyote time counter
             }else{
-                coyoteTimeCounter -= Time.deltaTime;
+                coyoteTimeCounter -= Time.deltaTime; // Subtracts time from coyote timer
+            }
+        }
+        if (canWallJump){ // Checking if player can wall jump
+            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(KeyCode.Space)){ // Checking if player is next to a wall
+                isGrounded = true; // Making him grounded = resseting his extra jumps
             }
         }
         if (isGrounded){ 
-            coyoteTimeCounter = coyoteTime;
+            coyoteTimeCounter = coyoteTime; // Resets the coyote time timer
         }else{
-            coyoteTimeCounter -= Time.deltaTime;
+            coyoteTimeCounter -= Time.deltaTime; // Subtracts current time out of coyote timer
         }
         if (Input.GetKeyUp(KeyCode.Space)){
-            PlayerRigidBody.velocity = new Vector2(movement.x,(PlayerRigidBody.velocity.y/2));
-            coyoteTimeCounter = 0;
+            PlayerRigidBody.velocity = new Vector2(movement.x,(PlayerRigidBody.velocity.y/2)); // Makes player jump lower upon quick space release
+            coyoteTimeCounter = 0; // Sets coyote timer to 0
         }
         // Updating player's position
         transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Changing players position based on inputs 
@@ -85,8 +85,8 @@ public class PlayerMovement : MonoBehaviour{
                     // player.transform.localScale = new Vector3((float)1.6, 1, 1);
                     PlayerRigidBody.AddForce(new Vector2(-15, 0), ForceMode2D.Impulse);
                 }
-                DashParticle.Play();
-                PlayerRigidBody.gravityScale = 0;
+                DashParticle.Play(); // Initiates the dash paticle
+                PlayerRigidBody.gravityScale = 0; // Makes player not fall during dash
                 isDashing = true; 
                 StartCoroutine(Dash()); // Starts the dash timer
             }
@@ -98,9 +98,9 @@ public class PlayerMovement : MonoBehaviour{
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
         }
         // Melee attack mechanics
-        if(Input.GetKeyDown(KeyCode.C) && !isAttacking){
-            slashSprite.enabled = true;
-            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)) {
+        if(Input.GetKeyDown(KeyCode.C) && !isAttacking){ // Checking if C is pressed and if player can attack
+            slashSprite.enabled = true; // Shows the slash sprite
+            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)) { // Checks if player melee attack collider is touching anything on damageAble layer
                 playerMeleeCollider.enabled = false;
                 if (isFacingRight)
                 {
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour{
                 {
                     colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
                 }
-                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage);
+                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
             }
             playerMeleeCollider.enabled = true;
             isAttacking = true;
