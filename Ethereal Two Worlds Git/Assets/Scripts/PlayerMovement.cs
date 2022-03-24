@@ -11,15 +11,17 @@ public class PlayerMovement : MonoBehaviour{
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle; // Reference to the dash particle
-    private bool isDashing = false,isShooting=false,isGrounded=true,isAttacking = false; 
+    private bool isDashing = false, isShooting = false, isGrounded = true, isAttacking = false, isDashFall = false; 
     public static bool isFacingRight = true, canDoubleJump = false,canWallJump = false;
-    private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects;
+    private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects,layerEnemies,layerPlayer;
     private Vector3 playerScale; // Local scale of the player used for flipping
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     private void Start(){
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
         layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
+        layerEnemies = LayerMask.NameToLayer("Enemies");
+        layerPlayer = LayerMask.NameToLayer("Player");
         playerScale = player.transform.localScale; // Defines players starting local scale
     }
     void Update(){
@@ -27,6 +29,10 @@ public class PlayerMovement : MonoBehaviour{
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         //Jump mechanics
+        if (isDashFall)
+        {
+            PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, 0);
+        }
         if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { // Checking if the player ground collider is touching anything on the platforms layer
             isGrounded = true;
         }else{
@@ -63,10 +69,8 @@ public class PlayerMovement : MonoBehaviour{
             PlayerRigidBody.velocity = new Vector2(movement.x,(PlayerRigidBody.velocity.y/2)); // Makes player jump lower upon quick space release
             coyoteTimeCounter = 0; // Sets coyote timer to 0
         }
-        // Updating player's position
-        transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Changing players position based on inputs 
         //Changes the side the character is facing 
-        if(movement.x == 1 && !isFacingRight){
+        if (movement.x == 1 && !isFacingRight){
             isFacingRight = true;
             playerScale.x = 1;
             player.transform.localScale = playerScale;
@@ -87,6 +91,7 @@ public class PlayerMovement : MonoBehaviour{
                 }
                 DashParticle.Play(); // Initiates the dash paticle
                 PlayerRigidBody.gravityScale = 0; // Makes player not fall during dash
+                isDashFall = true;
                 isDashing = true; 
                 StartCoroutine(Dash()); // Starts the dash timer
             }
@@ -100,7 +105,7 @@ public class PlayerMovement : MonoBehaviour{
         // Melee attack mechanics
         if(Input.GetKeyDown(KeyCode.C) && !isAttacking){ // Checking if C is pressed and if player can attack
             slashSprite.enabled = true; // Shows the slash sprite
-            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)) { // Checks if player melee attack collider is touching anything on damageAble layer
+            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)|| playerMeleeCollider.IsTouchingLayers(1 << layerEnemies)) { // Checks if player melee attack collider is touching anything on damageAble layer
                 playerMeleeCollider.enabled = false;
                 if (isFacingRight)
                 {
@@ -116,6 +121,12 @@ public class PlayerMovement : MonoBehaviour{
             StartCoroutine(Slash());
         }
     }
+    private void FixedUpdate()
+    {
+        // Updating player's position
+        transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Changing players position based on inputs 
+        
+    }
     private void ReturnValuesAfterDash() { //Returns all the normal player values should the dash end/stop
     
         PlayerRigidBody.velocity = new Vector2(0,PlayerRigidBody.velocity.y);
@@ -126,7 +137,10 @@ public class PlayerMovement : MonoBehaviour{
         slashSprite.enabled = false;
     }
     IEnumerator Dash() { // Dash timer
+        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemies, true);
         yield return new WaitForSecondsRealtime((float) 0.2);
+        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemies, false);
+        isDashFall = false;
         //Sets all values back to normal after 1 second
         DashParticle.Stop();
         ReturnValuesAfterDash();
@@ -141,7 +155,8 @@ public class PlayerMovement : MonoBehaviour{
     { // Shooting timer 
         yield return new WaitForSecondsRealtime((float)0.3);
         ReturnValuesAfterSlash();
-        yield return new WaitForSecondsRealtime((float)0.5);
+        yield return new WaitForSecondsRealtime((float)0.2);
         isAttacking = false;
     }
+    
 }

@@ -14,8 +14,8 @@ TagManager:
   - Platforms
   - Walls
   - DamageableObjects
-  - 
-  - 
+  - Enemies
+  - Player
   - 
   - 
   - 
