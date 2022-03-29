@@ -6,15 +6,18 @@ public class BulletScript : MonoBehaviour{
     private int bulletDamage = 1;
     private float xMovement; // Direction the bullet travels in
     private int layerPlatforms,layerWalls,layerDamageable; // References to the layers that affect the bullets
+    Vector3 bulletScale;
     private void Start(){
         layerPlatforms = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerDamageable = LayerMask.NameToLayer("DamageableObjects");
+        bulletScale = gameObject.transform.localScale;
         if (PlayerMovement.isFacingRight){ // Checks which direction is player standing in and send the bullet in the according direction
             xMovement = 1;
         }
         else{
             xMovement = -1;
+            Flip();
         }
     }
     void Update() { 
@@ -27,5 +30,10 @@ public class BulletScript : MonoBehaviour{
             Destroy(gameObject);
         }
         transform.position += new Vector3(xMovement, 0, 0) * Time.deltaTime * bulletSpeed; //Changing the bullets position in the world space
+    }
+    private void Flip()
+    {
+        bulletScale.x = xMovement;
+        gameObject.transform.localScale = bulletScale;
     }
 }

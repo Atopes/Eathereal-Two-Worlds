@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour{
     private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects;
     private Vector3 playerScale;
     private Collider2D colliderC;
+
+    public Animator animator;
     private void Start(){
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
@@ -29,8 +31,11 @@ public class PlayerMovement : MonoBehaviour{
         //Jump mechanics
         if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { // Checking if the player ground collider is touching anything on the platforms layer
             isGrounded = true;
-        }else{
+            animator.SetBool("Grounded", true);
+        }
+        else{
             isGrounded = false;
+            animator.SetBool("Grounded", false);
         }
         if (!canDoubleJump){ // Jump mechanics if player can't double jump
             if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0) {// Checking if space is pressed and if the player is NOT in the air
@@ -70,11 +75,16 @@ public class PlayerMovement : MonoBehaviour{
             isFacingRight = true;
             playerScale.x = 1;
             player.transform.localScale = playerScale;
+
         }else if (movement.x == -1 && isFacingRight){
             isFacingRight = false;
             playerScale.x = -1;
             player.transform.localScale = playerScale;
         }
+        if (movement.x != 0)
+            animator.SetFloat("Mov_Speed", 1);
+        else if(movement.x == 0)
+            animator.SetFloat("Mov_Speed", 0);
         //Dash mechanics
         if (Input.GetKeyDown(KeyCode.LeftShift)){ // Looking for dash inputs
             if (!isDashing) { // Checking if player is not already dashing 
@@ -93,7 +103,7 @@ public class PlayerMovement : MonoBehaviour{
         }
         // Shooting mechanics
         if (Input.GetKeyDown(KeyCode.X) && !isShooting) { //Checking if X is pressed and player can shoot
-            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + (float) 0.6, player.gameObject.transform.position.y, 1), Quaternion.identity); // Spawns a bullet
+            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + (float) 1, player.gameObject.transform.position.y - (float) 0.5, 1), Quaternion.identity); // Spawns a bullet
             isShooting = true;
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
         }
@@ -115,6 +125,9 @@ public class PlayerMovement : MonoBehaviour{
             isAttacking = true;
             StartCoroutine(Slash());
         }
+
+        if (PlayerRigidBody.velocity.y > 0) animator.SetBool("Rising", true);
+        else animator.SetBool("Rising", false);
     }
     private void ReturnValuesAfterDash() { //Returns all the normal player values should the dash end/stop
     
@@ -144,4 +157,7 @@ public class PlayerMovement : MonoBehaviour{
         yield return new WaitForSecondsRealtime((float)0.5);
         isAttacking = false;
     }
+
+    
+
 }
