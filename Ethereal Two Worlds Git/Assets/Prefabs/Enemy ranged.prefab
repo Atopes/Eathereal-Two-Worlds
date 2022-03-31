@@ -131,7 +131,7 @@ MonoBehaviour:
   enemyRB: {fileID: 1911258907745376887}
   eye: {fileID: 1911258907822973224}
   enemeyProjectilePrefab: {fileID: 5713281951119648955, guid: e1414f1fb1044984e8cbb84e2c2a533e, type: 3}
-  movementSpeed: 2
+  movementSpeed: 5
   maximumVel: 2
 --- !u!61 &1911258907745376883 stripped
 BoxCollider2D:

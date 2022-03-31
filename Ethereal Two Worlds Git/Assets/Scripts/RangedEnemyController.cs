@@ -31,15 +31,6 @@ public class RangedEnemyController : MonoBehaviour
         { //Checking for collision with player
             playerStatistics.gameObject.SendMessage("takeDamage", attackPower); //Deals damage to the player upon collision
         }
-        //Movement 
-        if (enemyRB.velocity.x > maximumVel && movement.x > 0)
-        {
-            enemyRB.velocity = new Vector2(maximumVel, enemyRB.velocity.y);
-        }
-        else if (enemyRB.velocity.x < -maximumVel && movement.x < 0)
-        {
-            enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
-        }
         if (wallDetection.IsTouchingLayers(1 << layerWalls) || !platformDetection.IsTouchingLayers(1 << layerPlatforms) || wallDetection.IsTouchingLayers(1 << layerDestroyable))
         { //Checks if the enemy is touching a wall,damageableObject or platform
             if (enemyRB.velocity.y > -0.1)
@@ -49,8 +40,6 @@ public class RangedEnemyController : MonoBehaviour
                 Flip(); // Changes the way the enemy is looking 
             }
         }
-        enemyRB.AddForce(new Vector2(movement.x * movementSpeed, 0), ForceMode2D.Force); // Moving with enemies rigid body component in a certain direction
-
         RaycastHit2D hit = Physics2D.Linecast(eye.transform.position, eye.transform.position + seekDistance, 1 << LayerMask.NameToLayer("Player"));
         if (hit.collider != null)
         {
@@ -64,9 +53,21 @@ public class RangedEnemyController : MonoBehaviour
         }
         else if (hit.collider == null && maximumVel == 0)
         {
-            maximumVel = 5;
+            maximumVel = 2;
         }
-
+        if (enemyRB.velocity.x < maximumVel && movement.x > 0 || (enemyRB.velocity.x > -maximumVel && movement.x < 0))
+        {
+            enemyRB.AddForce(new Vector2(movement.x * movementSpeed, 0), ForceMode2D.Force); // Moving with enemies rigid body component in a certain direction
+        }
+        //Movement 
+        /*if (enemyRB.velocity.x > maximumVel && movement.x > 0)
+        {
+            enemyRB.velocity = new Vector2(maximumVel, enemyRB.velocity.y);
+        }
+        else if (enemyRB.velocity.x < -maximumVel && movement.x < 0)
+        {
+            enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
+        }*/
     }
     private void Flip()
     {

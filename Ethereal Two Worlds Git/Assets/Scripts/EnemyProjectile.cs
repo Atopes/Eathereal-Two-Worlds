@@ -10,20 +10,22 @@ public class EnemyProjectile : MonoBehaviour
     private float xMovement; // Direction the bullet travels in
     private int layerPlatforms, layerWalls, layerDamageable, layerEnemies; // References to the layers that affect the bullets
     private Vector3 seekDistance = new Vector3(2f,0) ;
+    Vector3 bulletScale;
     // Start is called before the first frame update
     void Start()
     {
         layerPlatforms = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerEnemies = LayerMask.NameToLayer("Enemies");
+        bulletScale = gameObject.transform.localScale;
 
         RaycastHit2D enemyOnLeft = Physics2D.Linecast(gameObject.transform.position, gameObject.transform.position + seekDistance, 1 << LayerMask.NameToLayer("Enemies"));
         RaycastHit2D enemyOnRight = Physics2D.Linecast(gameObject.transform.position, gameObject.transform.position - seekDistance, 1 << LayerMask.NameToLayer("Enemies"));
 
         if (enemyOnLeft.collider != null) {
             xMovement = -1;
-        }else if(enemyOnRight.collider != null)
-        {
+            Flip();
+        }else if(enemyOnRight.collider != null) {
             xMovement = 1;
         }
     }
@@ -43,5 +45,10 @@ public class EnemyProjectile : MonoBehaviour
             }
         }
         transform.position += new Vector3(xMovement, 0, 0) * Time.deltaTime * bulletSpeed; //Changing the bullets position in the world space
+    }
+    private void Flip()
+    {
+        bulletScale.x = xMovement;
+        gameObject.transform.localScale = bulletScale;
     }
 }
