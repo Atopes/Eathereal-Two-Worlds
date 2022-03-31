@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour{
     public float movementSpeed = 2f,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
+    private Vector3 seekDistance = new Vector3(2f,0);
     void Start() {
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
@@ -37,6 +38,7 @@ public class EnemyController : MonoBehaviour{
             }
         }
         enemyRB.AddForce(new Vector2(movement.x * movementSpeed, 0), ForceMode2D.Force); // Moving with enemies rigid body component in a certain direction
+
     }
     private void Flip(){
         enemyScale.x = -enemyScale.x; // Flips the local scale

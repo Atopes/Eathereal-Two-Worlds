@@ -98,7 +98,8 @@ public class PlayerMovement : MonoBehaviour{
         }
         // Shooting mechanics
         if (Input.GetKeyDown(KeyCode.X) && !isShooting) { //Checking if X is pressed and player can shoot
-            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + (float) 0.6, player.gameObject.transform.position.y, 1), Quaternion.identity); // Spawns a bullet
+           
+            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + ((float) 0.8 * playerScale.x), player.gameObject.transform.position.y, 1), Quaternion.identity); // Spawns a bullet
             isShooting = true;
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
         }
