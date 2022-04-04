@@ -8,9 +8,10 @@ public class EnemyController : MonoBehaviour{
     public PlayerStatistics playerStatistics; //Reference to the PlayerStatistics script so our enemy can deal damage
     public Rigidbody2D enemyRB; // Enemies rigid body for smooth movement
     private int layerWalls,layerPlatforms,layerDestroyable; // Reference to the different layers
-    public float movementSpeed = 2f; // Movement speed of the enemy
+    public float movementSpeed = 2f,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
+    private Vector3 seekDistance = new Vector3(2f,0);
     void Start() {
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
@@ -24,6 +25,11 @@ public class EnemyController : MonoBehaviour{
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
         }
         //Movement 
+        if(enemyRB.velocity.x > maximumVel && movement.x > 0){
+            enemyRB.velocity = new Vector2(maximumVel,enemyRB.velocity.y);
+        }else if(enemyRB.velocity.x < -maximumVel && movement.x < 0){
+            enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
+        }
         if (wallDetection.IsTouchingLayers(1 << layerWalls)|| !platformDetection.IsTouchingLayers(1 << layerPlatforms) || wallDetection.IsTouchingLayers(1 << layerDestroyable)){ //Checks if the enemy is touching a wall,damageableObject or platform
             if (enemyRB.velocity.y > -0.1){ // Should the enemy be falling it wont start spinning xd
                 movement.x = -movement.x; // Changes the direction enemy is moving in
@@ -32,6 +38,7 @@ public class EnemyController : MonoBehaviour{
             }
         }
         enemyRB.AddForce(new Vector2(movement.x * movementSpeed, 0), ForceMode2D.Force); // Moving with enemies rigid body component in a certain direction
+
     }
     private void Flip(){
         enemyScale.x = -enemyScale.x; // Flips the local scale
