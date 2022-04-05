@@ -14,10 +14,14 @@ public class PlayerStatistics : MonoBehaviour
     public void takeDamage(int health){ // Method to deal damage to the player
         if (canTakeDamage){
             currentHP -= health; // Damages player
+            if(currentHP > healthPoints){
+                currentHP = healthPoints;
+            }
             healthBar.SetHealth(currentHP); // Setting health bar to the new current hp value 
             canTakeDamage = false; // Makes player invincible
             StartCoroutine(damageTimer()); 
         }
+        
     }
     IEnumerator damageTimer(){
         yield return new WaitForSecondsRealtime(1); // Waits 1 s lol

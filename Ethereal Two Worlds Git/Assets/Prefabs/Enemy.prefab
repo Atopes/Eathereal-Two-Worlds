@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8376177807573141578}
   - component: {fileID: 8376177807573141577}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: wallDetection
-  m_TagString: Untagged
+  m_TagString: IgnoreDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 8376177808042809531}
   - component: {fileID: 8376177808042809530}
   - component: {fileID: 8376177808042809534}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,8 +168,8 @@ MonoBehaviour:
   platformDetection: {fileID: 8376177808107257570}
   playerStatistics: {fileID: 0}
   enemyRB: {fileID: 8376177808042809534}
-  enemy: {fileID: 8376177808042809529}
   movementSpeed: 5
+  maximumVel: 2
 --- !u!61 &8376177808042809530
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8376177808107257571}
   - component: {fileID: 8376177808107257570}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: platformDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8376177808321733602}
   - component: {fileID: 8376177808321733603}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
