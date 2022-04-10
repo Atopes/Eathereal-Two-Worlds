@@ -1,2 +1,2 @@
-# Eathereal-Two-Worlds
+# Two-Worlds
 Platformer with changing platforms.
