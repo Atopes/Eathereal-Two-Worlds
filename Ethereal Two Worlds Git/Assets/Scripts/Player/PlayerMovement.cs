@@ -1,39 +1,39 @@
 using System.Collections;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour{
-    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f ,coyoteTimeCounter,knockbackForce=2f;
+    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f ,coyoteTimeCounter;
     public Rigidbody2D PlayerRigidBody; // Player's rigid body
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-    public CircleCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
+<<<<<<< Updated upstream
+    public CircleCollider2D playerMeleeCollider;
+    public SpriteRenderer slashSprite;
+=======
+    public PolygonCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
     public SpriteRenderer slashSprite; // Reference to the slash sprite
+>>>>>>> Stashed changes
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
-    public ParticleSystem DashParticle; // Reference to the dash particle
-    private bool isDashing = false, isShooting = false, isGrounded = true, isAttacking = false, isDashFall = false; 
-    public static bool isFacingRight = true, canDoubleJump = false,canWallJump = false,canShoot=false;
-    private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects,layerEnemies,layerPlayer;
-    private Vector3 playerScale; // Local scale of the player used for flipping
-    private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
+    public ParticleSystem DashParticle;
+    private bool isDashing = false,isShooting=false,isGrounded=true,isAttacking = false; 
+    public static bool isFacingRight = true, canDoubleJump = false,canWallJump = false;
+    private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects;
+    private Vector3 playerScale;
+    private Collider2D colliderC;
+
     public Animator animator;
     private void Start(){
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
-        layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
-        layerEnemies = LayerMask.NameToLayer("Enemies");
-        layerPlayer = LayerMask.NameToLayer("Player");
-        playerScale = player.transform.localScale; // Defines players starting local scale
+        layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects");
+        playerScale = player.transform.localScale;
     }
     void Update(){
         //Getting X & Y axis input (WASD / arrow keys)
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         //Jump mechanics
-        if (isDashFall)
-        {
-            PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, 0);
-        }
         if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { // Checking if the player ground collider is touching anything on the platforms layer
             isGrounded = true;
             animator.SetBool("Grounded", true);
@@ -52,42 +52,44 @@ public class PlayerMovement : MonoBehaviour{
                 PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse); // Jumps again
                 extrajumps--; 
             }
+            if (canWallJump){ // Checking if player can wall jump
+                if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(KeyCode.Space)){ // Checking if player is next to a wall
+                    isGrounded = true; // Making him grounded = resseting his extra jumps
+                }
+            }
             if (isGrounded){
                 extrajumps = 1; // Resseting extra jumps if player touches ground 
-                coyoteTimeCounter = coyoteTime; // Resets coyote time counter
+                coyoteTimeCounter = coyoteTime;
             }else{
-                coyoteTimeCounter -= Time.deltaTime; // Subtracts time from coyote timer
-            }
-        }
-        if (canWallJump){ // Checking if player can wall jump
-            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(KeyCode.Space)){ // Checking if player is next to a wall
-                isGrounded = true; // Making him grounded = resseting his extra jumps
+                coyoteTimeCounter -= Time.deltaTime;
             }
         }
         if (isGrounded){ 
-            coyoteTimeCounter = coyoteTime; // Resets the coyote time timer
+            coyoteTimeCounter = coyoteTime;
         }else{
-            coyoteTimeCounter -= Time.deltaTime; // Subtracts current time out of coyote timer
+            coyoteTimeCounter -= Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.Space)){
-            PlayerRigidBody.velocity = new Vector2(movement.x,(PlayerRigidBody.velocity.y/2)); // Makes player jump lower upon quick space release
-            coyoteTimeCounter = 0; // Sets coyote timer to 0
+            PlayerRigidBody.velocity = new Vector2(movement.x,(PlayerRigidBody.velocity.y/2));
+            coyoteTimeCounter = 0;
         }
+        // Updating player's position
+        transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Changing players position based on inputs 
         //Changes the side the character is facing 
-        if (movement.x == 1 && !isFacingRight){
+        if(movement.x == 1 && !isFacingRight){
             isFacingRight = true;
-            playerScale.x =(float) 1.32;
+            playerScale.x = 1;
             player.transform.localScale = playerScale;
+
         }else if (movement.x == -1 && isFacingRight){
             isFacingRight = false;
-            playerScale.x =(float) -1.32;
+            playerScale.x = -1;
             player.transform.localScale = playerScale;
         }
-        if (movement.x != 0){
+        if (movement.x != 0)
             animator.SetFloat("Mov_Speed", 1);
-        } else if  (movement.x == 0) { 
+        else if(movement.x == 0)
             animator.SetFloat("Mov_Speed", 0);
-        }
         //Dash mechanics
         if (Input.GetKeyDown(KeyCode.LeftShift)){ // Looking for dash inputs
             if (!isDashing) { // Checking if player is not already dashing 
@@ -98,24 +100,22 @@ public class PlayerMovement : MonoBehaviour{
                     // player.transform.localScale = new Vector3((float)1.6, 1, 1);
                     PlayerRigidBody.AddForce(new Vector2(-15, 0), ForceMode2D.Impulse);
                 }
-                DashParticle.Play(); // Initiates the dash paticle
-                PlayerRigidBody.gravityScale = 0; // Makes player not fall during dash
-                isDashFall = true;
+                DashParticle.Play();
+                PlayerRigidBody.gravityScale = 0;
                 isDashing = true; 
                 StartCoroutine(Dash()); // Starts the dash timer
             }
         }
         // Shooting mechanics
-        if (Input.GetKeyDown(KeyCode.X) && !isShooting && canShoot) { //Checking if X is pressed and player can shoot
-           
-            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + ((float) 0.8 * playerScale.x), player.gameObject.transform.position.y - (float) 0.8, 1), Quaternion.identity); // Spawns a bullet
+        if (Input.GetKeyDown(KeyCode.X) && !isShooting) { //Checking if X is pressed and player can shoot
+            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + (float) 1, player.gameObject.transform.position.y - (float) 0.5, 1), Quaternion.identity); // Spawns a bullet
             isShooting = true;
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
         }
         // Melee attack mechanics
-        if(Input.GetKeyDown(KeyCode.C) && !isAttacking){ // Checking if C is pressed and if player can attack
-            slashSprite.enabled = true; // Shows the slash sprite
-            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)|| playerMeleeCollider.IsTouchingLayers(1 << layerEnemies)) { // Checks if player melee attack collider is touching anything on damageAble layer
+        if(Input.GetKeyDown(KeyCode.C) && !isAttacking){
+            slashSprite.enabled = true;
+            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects)) {
                 playerMeleeCollider.enabled = false;
                 if (isFacingRight)
                 {
@@ -124,23 +124,19 @@ public class PlayerMovement : MonoBehaviour{
                 {
                     colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
                 }
-                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
+<<<<<<< Updated upstream
+                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage);
+=======
+                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activates the TakeDamage method on the object that was hit 
+>>>>>>> Stashed changes
             }
             playerMeleeCollider.enabled = true;
             isAttacking = true;
             StartCoroutine(Slash());
         }
-        if (PlayerRigidBody.velocity.y > 0) {
-            animator.SetBool("Rising", true); 
-        }else{ 
-            animator.SetBool("Rising", false); 
-        }
-    }
-    private void FixedUpdate()
-    {
-        // Updating player's position
-        transform.position += new Vector3(movement.x, 0, 0) * Time.deltaTime * playerMovementSpeed; // Changing players position based on inputs 
-        
+
+        if (PlayerRigidBody.velocity.y > 0) animator.SetBool("Rising", true);
+        else animator.SetBool("Rising", false);
     }
     private void ReturnValuesAfterDash() { //Returns all the normal player values should the dash end/stop
     
@@ -151,25 +147,8 @@ public class PlayerMovement : MonoBehaviour{
     {
         slashSprite.enabled = false;
     }
-    public void KnockBack(Vector3 position){
-        float distance = gameObject.transform.position.x - position.x;
-        coyoteTimeCounter = 0;
-        if(distance >= 0){
-            PlayerRigidBody.velocity = new Vector2(0, 0);
-            PlayerRigidBody.AddForce(new Vector2(1 * knockbackForce,12),ForceMode2D.Impulse);
-        }else{
-            PlayerRigidBody.velocity = new Vector2(0, 0);
-            PlayerRigidBody.AddForce(new Vector2(-1 * knockbackForce, 12),ForceMode2D.Impulse);
-        }
-    }
-    public void ResetVelocity(){
-        PlayerRigidBody.velocity = new Vector2(0,0);
-    }
     IEnumerator Dash() { // Dash timer
-        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemies, true);
         yield return new WaitForSecondsRealtime((float) 0.2);
-        Physics2D.IgnoreLayerCollision(layerPlayer, layerEnemies, false);
-        isDashFall = false;
         //Sets all values back to normal after 1 second
         DashParticle.Stop();
         ReturnValuesAfterDash();
@@ -184,8 +163,10 @@ public class PlayerMovement : MonoBehaviour{
     { // Shooting timer 
         yield return new WaitForSecondsRealtime((float)0.3);
         ReturnValuesAfterSlash();
-        yield return new WaitForSecondsRealtime((float)0.2);
+        yield return new WaitForSecondsRealtime((float)0.5);
         isAttacking = false;
     }
+
     
+
 }
