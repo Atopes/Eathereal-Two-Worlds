@@ -17,7 +17,7 @@ public class HealingItem : MonoBehaviour
     void Update()
     {
         if (playerMovement.playerColision.IsTouching(itemCollision) && PlayerStatistics.currentHP < PlayerStatistics.healthPoints){ //Checking for collision 
-            playerStatistics.takeDamage(-healAmount);
+            playerStatistics.healPlayer(healAmount);
             Destroy(gameObject);
         }
 
