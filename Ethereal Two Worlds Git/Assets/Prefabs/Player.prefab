@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5377627306360508747}
   - component: {fileID: 5377627306360508744}
   - component: {fileID: 5377627306360508757}
-  - component: {fileID: 5377627306360508745}
   - component: {fileID: 5377627306360508750}
   m_Layer: 10
   m_Name: Player
@@ -156,6 +155,7 @@ MonoBehaviour:
   JumpForce: 16
   coyoteTime: 0.2
   coyoteTimeCounter: 0
+  knockbackForce: 2
   PlayerRigidBody: {fileID: 5377627306360508747}
   playerColision: {fileID: 5377627306360508744}
   groundCheck: {fileID: 5377627307781344728}
@@ -165,20 +165,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5564090703170094236, guid: 7601290ad6a9c27489ec0f93e2b1bae4, type: 3}
   DashParticle: {fileID: 8741579641972854186}
   animator: {fileID: 5377627306360508750}
---- !u!114 &5377627306360508745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5377627306360508758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1740f244306deec4091b01aac21f5e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
-  canTakeDamage: 1
 --- !u!95 &5377627306360508750
 Animator:
   serializedVersion: 4
@@ -226,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5377627306535694182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000028899221, y: 0.27603444, z: -10}
+  m_LocalPosition: {x: 2.1990921, y: 1.7212412, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -260,7 +246,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

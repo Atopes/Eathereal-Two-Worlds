@@ -1,23 +1,18 @@
 using System.Collections;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour{
-    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f ,coyoteTimeCounter;
+    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f ,coyoteTimeCounter, knockbackForce = 2f;
     public Rigidbody2D PlayerRigidBody; // Player's rigid body
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-<<<<<<< Updated upstream
-    public CircleCollider2D playerMeleeCollider;
-    public SpriteRenderer slashSprite;
-=======
     public PolygonCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
     public SpriteRenderer slashSprite; // Reference to the slash sprite
->>>>>>> Stashed changes
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle;
-    private bool isDashing = false,isShooting=false,isGrounded=true,isAttacking = false; 
-    public static bool isFacingRight = true, canDoubleJump = false,canWallJump = false;
+    private bool isDashing = false,isShooting=false,isGrounded=true,isAttacking = false;
+    public static bool isFacingRight = true, canDoubleJump = false, canWallJump = false, canShoot = false;
     private int extrajumps = 1,platformsLayer,wallsLayer,layerDamageableObjects;
     private Vector3 playerScale;
     private Collider2D colliderC;
@@ -107,7 +102,7 @@ public class PlayerMovement : MonoBehaviour{
             }
         }
         // Shooting mechanics
-        if (Input.GetKeyDown(KeyCode.X) && !isShooting) { //Checking if X is pressed and player can shoot
+        if (Input.GetKeyDown(KeyCode.X) && !isShooting && canShoot) { //Checking if X is pressed and player can shoot
             Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + (float) 1, player.gameObject.transform.position.y - (float) 0.5, 1), Quaternion.identity); // Spawns a bullet
             isShooting = true;
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
@@ -124,11 +119,8 @@ public class PlayerMovement : MonoBehaviour{
                 {
                     colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
                 }
-<<<<<<< Updated upstream
                     colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage);
-=======
                     colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activates the TakeDamage method on the object that was hit 
->>>>>>> Stashed changes
             }
             playerMeleeCollider.enabled = true;
             isAttacking = true;
@@ -146,6 +138,25 @@ public class PlayerMovement : MonoBehaviour{
     private void ReturnValuesAfterSlash()
     {
         slashSprite.enabled = false;
+    }
+    public void KnockBack(Vector3 position)
+    {
+        float distance = gameObject.transform.position.x - position.x;
+        coyoteTimeCounter = 0;
+        if (distance >= 0)
+        {
+            PlayerRigidBody.velocity = new Vector2(0, 0);
+            PlayerRigidBody.AddForce(new Vector2(1 * knockbackForce, 12), ForceMode2D.Impulse);
+        }
+        else
+        {
+            PlayerRigidBody.velocity = new Vector2(0, 0);
+            PlayerRigidBody.AddForce(new Vector2(-1 * knockbackForce, 12), ForceMode2D.Impulse);
+        }
+    }
+    public void ResetVelocity()
+    {
+        PlayerRigidBody.velocity = new Vector2(0, 0);
     }
     IEnumerator Dash() { // Dash timer
         yield return new WaitForSecondsRealtime((float) 0.2);

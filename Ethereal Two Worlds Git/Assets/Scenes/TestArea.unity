@@ -675,7 +675,7 @@ MonoBehaviour:
     - Dangerous wolves spotted in the area.
     name: Bilboard
   triggerArea: {fileID: 47930413}
-  playerMovement: {fileID: 276465231}
+  playerMovement: {fileID: 0}
   prompt: {fileID: 1391904393}
 --- !u!4 &47930415 stripped
 Transform:
@@ -1218,7 +1218,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9549218, y: 1}
+    m_SensorSize: {x: 2.1845772, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3460,10 +3460,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5377627306360508756, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   m_PrefabInstance: {fileID: 5377627306098792218}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &276465231 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5377627306360508757, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+--- !u!61 &276465234 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5377627306360508744, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &276465235 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5377627306360508750, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &276465236 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5377627306360508747, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &276465238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276465228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab910ddef9a52b4195170714b4e96a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 1889254610}
+  canTakeDamage: 1
+  animator: {fileID: 276465235}
+--- !u!114 &276465239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276465228}
   m_Enabled: 1
@@ -3471,22 +3502,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fc2fed34df21a49a5cc4cb9d9c75c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &276465234 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5377627306360508744, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
-  m_PrefabInstance: {fileID: 5377627306098792218}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &276465235 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
-  m_PrefabInstance: {fileID: 5377627306098792218}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276465228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1740f244306deec4091b01aac21f5e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerMovementSpeed: 2
+  JumpForce: 2
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
+  knockbackForce: 2
+  PlayerRigidBody: {fileID: 276465236}
+  playerColision: {fileID: 276465234}
+  groundCheck: {fileID: 1801577310}
+  playerMeleeCollider: {fileID: 1551320548}
+  slashSprite: {fileID: 1551320547}
+  player: {fileID: 276465228}
+  bulletPrefab: {fileID: 5564090703170094236, guid: 7601290ad6a9c27489ec0f93e2b1bae4, type: 3}
+  DashParticle: {fileID: 399834122}
+  animator: {fileID: 276465235}
 --- !u!1 &286234653
 GameObject:
   m_ObjectHideFlags: 0
@@ -4491,6 +4520,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de570bfbf1a49ba4c9575930f7db6bae, type: 3}
+--- !u!198 &399834122 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8741579641972854186, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &416321978
 GameObject:
   m_ObjectHideFlags: 0
@@ -10728,7 +10762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 906962787}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 0}
   hasKnockBack: 1
 --- !u!61 &906962787
 BoxCollider2D:
@@ -15740,7 +15774,7 @@ PrefabInstance:
     - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: playerStatistics
       value: 
-      objectReference: {fileID: 276465235}
+      objectReference: {fileID: 0}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (3)
@@ -17581,6 +17615,61 @@ Transform:
   m_Father: {fileID: 1631435199}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1551320544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5377627307229267540, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1551320547 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5377627307229267531, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!60 &1551320548
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551320544}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.15234375, y: 0.47265625}
+      - {x: -0.29296875, y: 0.40234375}
+      - {x: -0.40234375, y: 0.29296875}
+      - {x: -0.47265625, y: 0.15234375}
+      - {x: -0.5, y: 0}
+      - {x: -0.47265625, y: -0.15234375}
+      - {x: -0.40234375, y: -0.29296875}
+      - {x: -0.29296875, y: -0.40234375}
+      - {x: -0.15234375, y: -0.47265625}
+      - {x: 0, y: -0.5}
+      - {x: 0.15234375, y: -0.47265625}
+      - {x: 0.29296875, y: -0.40234375}
+      - {x: 0.40234375, y: -0.29296875}
+      - {x: 0.47265625, y: -0.15234375}
+      - {x: 0.5, y: 0}
+      - {x: 0.47265625, y: 0.15234375}
+      - {x: 0.40234375, y: 0.29296875}
+      - {x: 0.29296875, y: 0.40234375}
+      - {x: 0.15234375, y: 0.47265625}
 --- !u!1 &1557508344
 GameObject:
   m_ObjectHideFlags: 0
@@ -20536,6 +20625,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &1801577310 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 5377627307781344728, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1804454760
 GameObject:
   m_ObjectHideFlags: 0
@@ -21457,7 +21551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 1890128955}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 0}
   hasKnockBack: 1
 --- !u!61 &1890128955
 BoxCollider2D:
@@ -24288,7 +24382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 2132246659}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 0}
   hasKnockBack: 1
 --- !u!61 &2132246659
 BoxCollider2D:
@@ -24510,7 +24604,7 @@ PrefabInstance:
     - target: {fileID: 341619339180702077, guid: 3e3d237dda976f149a9d295ba2ce6c50, type: 3}
       propertyPath: playerMovement
       value: 
-      objectReference: {fileID: 276465231}
+      objectReference: {fileID: 0}
     - target: {fileID: 341619339180702079, guid: 3e3d237dda976f149a9d295ba2ce6c50, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -24598,13 +24692,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0014073921
+      value: 0.001742623
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.803862
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5377627306360508757, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+    - {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+    - {fileID: 5377627307229267528, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
 --- !u!1001 &6390792056141398138
 PrefabInstance:
