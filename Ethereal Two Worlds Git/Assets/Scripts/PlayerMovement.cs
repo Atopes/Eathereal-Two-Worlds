@@ -6,8 +6,13 @@ public class PlayerMovement : MonoBehaviour{
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
+<<<<<<< Updated upstream
     public CircleCollider2D playerMeleeCollider;
     public SpriteRenderer slashSprite;
+=======
+    public PolygonCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
+    public SpriteRenderer slashSprite; // Reference to the slash sprite
+>>>>>>> Stashed changes
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle;
@@ -119,7 +124,11 @@ public class PlayerMovement : MonoBehaviour{
                 {
                     colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
                 }
+<<<<<<< Updated upstream
                     colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage);
+=======
+                    colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activates the TakeDamage method on the object that was hit 
+>>>>>>> Stashed changes
             }
             playerMeleeCollider.enabled = true;
             isAttacking = true;
