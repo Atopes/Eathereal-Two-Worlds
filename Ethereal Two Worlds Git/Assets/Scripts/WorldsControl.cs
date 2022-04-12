@@ -8,6 +8,7 @@ public class WorldsControl : MonoBehaviour
     List<GameObject> RedObjects,BlueObjects; //List of all the coins in the scene
     private int blueCount, redCount; // Counter for the blue and red objects
     private Color blueTransparent,blue,redTransparent,red; // Setting up the correct colors
+    public static bool canSwitch = false;
     private void Start(){
         //Defining the colors in RGBA spectre
         blueTransparent = new Color(0.1f, 0.1f, 0.4f, 0.2f);
@@ -30,7 +31,7 @@ public class WorldsControl : MonoBehaviour
         }
     }
     void Update(){
-        if (Input.GetKeyDown(KeyCode.E) && isRedUp){ //Checking for E input and if red objects are up 
+        if (Input.GetKeyDown(KeyCode.E) && isRedUp && canSwitch){ //Checking for E input and if red objects are up 
             for(int i = 0; i < blueCount; i++) {
                 BlueObjects[i].GetComponent<BoxCollider2D>().enabled=true; //Enables collision with blue walls colliders
                 BlueObjects[i].GetComponent<SpriteRenderer>().color = blue; //Sets blue colors transparency to full
@@ -40,7 +41,7 @@ public class WorldsControl : MonoBehaviour
                 RedObjects[i].GetComponent<SpriteRenderer>().color = redTransparent; // Sets red colors transparency to 10%
             }
             isRedUp = false;
-        }else if (Input.GetKeyDown(KeyCode.E) && !isRedUp){ //Checking for E input and if red objects are down
+        }else if (Input.GetKeyDown(KeyCode.E) && !isRedUp && canSwitch){ //Checking for E input and if red objects are down
             for (int i = 0; i < blueCount; i++){
                 BlueObjects[i].GetComponent<BoxCollider2D>().enabled =false; // Disables collison with blue object colliders
                 BlueObjects[i].GetComponent<SpriteRenderer>().color = blueTransparent; // Sets blue colors transparency to 10 %

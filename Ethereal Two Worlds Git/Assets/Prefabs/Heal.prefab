@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
   m_Color: {r: 0.65242994, g: 1, b: 0.56981134, a: 1}
   m_FlipX: 0
@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemCollision: {fileID: 344430250293131411}
-  playerCollision: {fileID: 0}
-  playerStatistics: {fileID: 0}
+  playerCollision: {fileID: 5377627306360508744, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+  playerStatistics: {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   healAmount: 2
