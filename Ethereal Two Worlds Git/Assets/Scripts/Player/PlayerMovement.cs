@@ -7,8 +7,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-    public PolygonCollider2D playerMeleeCollider; //Reference to the players melee attack hitbox
-    public SpriteRenderer slashSprite; // Reference to the slash sprite
+   // public SpriteRenderer slashSprite; // Reference to the slash sprite
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle; // Reference to the dash particle
@@ -18,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerScale; // Local scale of the player used for flipping
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
+    public PolygonCollider2D[] playerMeleeColliders = new PolygonCollider2D[4];//Reference to the players melee attack hitbox
+    private int colliderIndex = 0;
     private void Start()
     {
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
@@ -107,11 +108,11 @@ public class PlayerMovement : MonoBehaviour
         }
         if (movement.x != 0)
         {
-            animator.SetFloat("Mov_Speed", 1);
+            animator.SetInteger("Mov_Speed", 1);
         }
         else if (movement.x == 0)
         {
-            animator.SetFloat("Mov_Speed", 0);
+            animator.SetInteger("Mov_Speed", 0);
         }
         //Dash mechanics
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -146,21 +147,22 @@ public class PlayerMovement : MonoBehaviour
         // Melee attack mechanics
         if (Input.GetKeyDown(KeyCode.C) && !isAttacking)
         { // Checking if C is pressed and if player can attack
-            slashSprite.enabled = true; // Shows the slash sprite
-            if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeCollider.IsTouchingLayers(1 << layerEnemies))
+            //slashSprite.enabled = true; // Shows the slash sprite
+            animator.SetTrigger("Attack");
+            if (playerMeleeColliders[colliderIndex].IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeColliders[colliderIndex].IsTouchingLayers(1 << layerEnemies))
             { // Checks if player melee attack collider is touching anything on damageAble layer
-                playerMeleeCollider.enabled = false;
+                playerMeleeColliders[colliderIndex].enabled = false;
                 if (isFacingRight)
                 {
-                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x + (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
+                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeColliders[colliderIndex].transform.position.x + (float)0.6, playerMeleeColliders[colliderIndex].transform.position.y, 1), (float)0.1);
                 }
                 else
                 {
-                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
+                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeColliders[colliderIndex].transform.position.x - (float)0.6, playerMeleeColliders[colliderIndex].transform.position.y, 1), (float)0.1);
                 }
                 colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
             }
-            playerMeleeCollider.enabled = true;
+            playerMeleeColliders[colliderIndex].enabled = true;
             isAttacking = true;
             StartCoroutine(Slash());
         }
@@ -187,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ReturnValuesAfterSlash()
     {
-        slashSprite.enabled = false;
+        //slashSprite.enabled = false;
     }
     public void KnockBack(Vector3 position)
     {
