@@ -15,7 +15,7 @@ public class PlayerStatistics : MonoBehaviour
     public void takeDamage(int health){ // Method to deal damage to the player
         if (canTakeDamage)
         {
-            animator.SetBool("Hurt", true);
+            animator.SetTrigger("Hurt");
             currentHP -= health; // Damages player
             animator.SetInteger("CurrHealth", currentHP);
             healthBar.SetHealth(currentHP); // Setting health bar to the new current hp value 
@@ -26,8 +26,6 @@ public class PlayerStatistics : MonoBehaviour
     }
     IEnumerator damageTimer()
     {
-        yield return new WaitForSecondsRealtime((float)0.2);
-        animator.SetBool("Hurt", false);
         yield return new WaitForSecondsRealtime((float)0.3); // Waits 0.3 s lol
         canTakeDamage = true; // Makes player mortal
         
