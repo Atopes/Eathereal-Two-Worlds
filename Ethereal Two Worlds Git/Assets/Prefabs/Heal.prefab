@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemCollision: {fileID: 344430250293131411}
-  healAmount: 2
+  healAmount: 1

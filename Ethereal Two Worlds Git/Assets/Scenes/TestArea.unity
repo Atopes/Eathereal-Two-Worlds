@@ -3560,17 +3560,26 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 5377627306360508744, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   m_PrefabInstance: {fileID: 5377627306098792218}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &276465235 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
+--- !u!95 &276465235 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5377627306360508750, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   m_PrefabInstance: {fileID: 5377627306098792218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &276465237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 276465228}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1740f244306deec4091b01aac21f5e5f, type: 3}
+  m_Script: {fileID: 11500000, guid: fab910ddef9a52b4195170714b4e96a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 1889254610}
+  canTakeDamage: 1
+  animator: {fileID: 276465235}
 --- !u!1 &286234653
 GameObject:
   m_ObjectHideFlags: 0
@@ -10885,7 +10894,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 906962787}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 276465237}
   hasKnockBack: 1
 --- !u!61 &906962787
 BoxCollider2D:
@@ -15948,7 +15957,7 @@ PrefabInstance:
     - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: playerStatistics
       value: 
-      objectReference: {fileID: 276465235}
+      objectReference: {fileID: 0}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (3)
@@ -21665,7 +21674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 1890128955}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 276465237}
   hasKnockBack: 1
 --- !u!61 &1890128955
 BoxCollider2D:
@@ -24496,7 +24505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneCollision: {fileID: 2132246659}
   playerCollision: {fileID: 276465234}
-  playerStatistics: {fileID: 276465235}
+  playerStatistics: {fileID: 276465237}
   hasKnockBack: 1
 --- !u!61 &2132246659
 BoxCollider2D:
