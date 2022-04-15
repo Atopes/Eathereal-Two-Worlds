@@ -6,6 +6,7 @@ public class PlayerStatistics : MonoBehaviour
 {
     public static int healthPoints=3,currentHP=3,coins=0,meleeDamage =3; //Different values
     public HealthBar healthBar; // Reference to the Health Bar script
+    public PlayerMovement playerMovement;
     public static Vector3 PlayerRespawnPoint;
     public bool canTakeDamage = true; // Defines if player can take damage - is invincible
     public Animator animator;
@@ -13,7 +14,7 @@ public class PlayerStatistics : MonoBehaviour
         PlayerRespawnPoint = gameObject.transform.position; // Sets the respawn point to the players starting location
     }
     public void takeDamage(int health){ // Method to deal damage to the player
-        if (canTakeDamage)
+        if (canTakeDamage && currentHP > 0)
         {
             animator.SetTrigger("Hurt");
             currentHP -= health; // Damages player
@@ -27,9 +28,9 @@ public class PlayerStatistics : MonoBehaviour
     IEnumerator damageTimer()
     {
         yield return new WaitForSecondsRealtime((float)0.3); // Waits 0.3 s lol
-        canTakeDamage = true; // Makes player mortal
-        
+            canTakeDamage = true; // Makes player mortal  
     }
+    
     public void healPlayer(int health)
     {
         currentHP += health;

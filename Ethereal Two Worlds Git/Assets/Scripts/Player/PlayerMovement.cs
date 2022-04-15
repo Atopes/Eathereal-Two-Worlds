@@ -12,13 +12,12 @@ public class PlayerMovement : MonoBehaviour
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle; // Reference to the dash particle
     private bool isDashing = false, isShooting = false, isGrounded = true, isAttacking = false, isDashFall = false;
-    public static bool isFacingRight = true, canDoubleJump = false, canWallJump = false, canShoot = false;
+    public static bool isFacingRight = true, canDoubleJump = false, canWallJump = false, canShoot = false,canMove=true;
     private int extrajumps = 1, platformsLayer, wallsLayer, layerDamageableObjects, layerEnemies, layerPlayer;
     private Vector3 playerScale; // Local scale of the player used for flipping
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
-    public PolygonCollider2D[] playerMeleeColliders = new PolygonCollider2D[4];//Reference to the players melee attack hitbox
-    private int colliderIndex = 0;
+    public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
     private void Start()
     {
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
@@ -31,8 +30,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Getting X & Y axis input (WASD / arrow keys)
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (canMove)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+        }
         //Jump mechanics
         if (isDashFall)
         {
@@ -144,26 +146,11 @@ public class PlayerMovement : MonoBehaviour
             isShooting = true;
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
         }
+
         // Melee attack mechanics
-        if (Input.GetKeyDown(KeyCode.C) && !isAttacking)
-        { // Checking if C is pressed and if player can attack
-            //slashSprite.enabled = true; // Shows the slash sprite
+        if (Input.GetKeyDown(KeyCode.C) && !isAttacking){ // Checking if C is pressed and if player can attack
             animator.SetTrigger("Attack");
-            if (playerMeleeColliders[colliderIndex].IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeColliders[colliderIndex].IsTouchingLayers(1 << layerEnemies))
-            { // Checks if player melee attack collider is touching anything on damageAble layer
-                playerMeleeColliders[colliderIndex].enabled = false;
-                if (isFacingRight)
-                {
-                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeColliders[colliderIndex].transform.position.x + (float)0.6, playerMeleeColliders[colliderIndex].transform.position.y, 1), (float)0.1);
-                }
-                else
-                {
-                    colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeColliders[colliderIndex].transform.position.x - (float)0.6, playerMeleeColliders[colliderIndex].transform.position.y, 1), (float)0.1);
-                }
-                colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
-            }
-            playerMeleeColliders[colliderIndex].enabled = true;
-            isAttacking = true;
+            StartCoroutine(SlashTimer());
             StartCoroutine(Slash());
         }
         if (PlayerRigidBody.velocity.y > 0)
@@ -187,28 +174,37 @@ public class PlayerMovement : MonoBehaviour
         PlayerRigidBody.velocity = new Vector2(0, PlayerRigidBody.velocity.y);
         PlayerRigidBody.gravityScale = 4;
     }
-    private void ReturnValuesAfterSlash()
-    {
-        //slashSprite.enabled = false;
-    }
     public void KnockBack(Vector3 position)
     {
         float distance = gameObject.transform.position.x - position.x;
-        coyoteTimeCounter = 0;
+        ResetVelocity();
         if (distance >= 0)
         {
             PlayerRigidBody.velocity = new Vector2(0, 0);
             PlayerRigidBody.AddForce(new Vector2(1 * knockbackForce, 12), ForceMode2D.Impulse);
+            coyoteTimeCounter -= 1;
+            isGrounded = false;
         }
         else
         {
             PlayerRigidBody.velocity = new Vector2(0, 0);
             PlayerRigidBody.AddForce(new Vector2(-1 * knockbackForce, 12), ForceMode2D.Impulse);
+            coyoteTimeCounter -= 1;
+            isGrounded = false;
         }
     }
     public void ResetVelocity()
     {
         PlayerRigidBody.velocity = new Vector2(0, 0);
+    }
+    public void FreezePlayer()
+    {
+        PlayerRigidBody.gravityScale = 5000;
+        movement = new Vector2(0, 0);
+    }
+    public void UnFreezePlayer()
+    {
+        PlayerRigidBody.gravityScale = 4;
     }
     IEnumerator Dash()
     { // Dash timer
@@ -227,12 +223,27 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSecondsRealtime((float)0.5);
         isShooting = false;
     }
-    IEnumerator Slash()
-    { // Shooting timer 
-        yield return new WaitForSecondsRealtime((float)0.3);
-        ReturnValuesAfterSlash();
-        yield return new WaitForSecondsRealtime((float)0.2);
+    IEnumerator Slash() {
+        yield return new WaitForSecondsRealtime((float)0.5);
         isAttacking = false;
+    }
+    IEnumerator SlashTimer(){ 
+        yield return new WaitForSecondsRealtime((float)0.15);
+        if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeCollider.IsTouchingLayers(1 << layerEnemies))
+        { // Checks if player melee attack collider is touching anything on damageAble layer
+            playerMeleeCollider.enabled = false;
+            if (isFacingRight)
+            {
+                colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x + (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
+            }
+            else
+            {
+                colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
+            }
+            colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
+        }
+        playerMeleeCollider.enabled = true;
+        isAttacking = true;
     }
 
 }

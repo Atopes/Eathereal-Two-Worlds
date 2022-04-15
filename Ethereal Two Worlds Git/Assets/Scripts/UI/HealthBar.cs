@@ -10,7 +10,11 @@ public class HealthBar : MonoBehaviour
     public Slider slider; //The slider object itself
     public TextMeshProUGUI healthText; //Text displayed in the health bar
     public Respawn respawn;
+    private PlayerMovement playerMovement;
+    private PlayerStatistics playerStatistics;
     private void Start(){
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerStatistics = FindObjectOfType<PlayerStatistics>();
         setMaxHealth();
         setMaxHealthText();
     }
@@ -24,8 +28,19 @@ public class HealthBar : MonoBehaviour
         slider.value = health; //Setting the value displayed on the slider to the current health
         if (PlayerStatistics.currentHP <= 0){ // Do something if hp is <= then 0
             PlayerStatistics.currentHP = 0;
-            respawn.RespawnPlayer();
+            playerStatistics.canTakeDamage = false;
+            StartCoroutine(respawnTimer());
         }
         healthText.text =PlayerStatistics.currentHP+"/"+ PlayerStatistics.healthPoints; //Setting the text displayed in the hp bar
+    }
+    IEnumerator respawnTimer()
+    {
+        playerMovement.FreezePlayer();
+        playerMovement.ResetVelocity();
+        PlayerMovement.canMove = false;
+        yield return new WaitForSecondsRealtime((float)0.9); // Waits 0.3 s lol
+        respawn.RespawnPlayer();
+        playerMovement.UnFreezePlayer();
+        playerStatistics.canTakeDamage = true;
     }
 }
