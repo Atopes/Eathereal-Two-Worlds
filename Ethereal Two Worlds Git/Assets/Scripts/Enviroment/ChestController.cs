@@ -9,7 +9,7 @@ public class ChestController : MonoBehaviour
     public GameObject prompt;
     public Animator animator;
     private bool isUsed = false, closed = true,promptUp=false;
-    private Vector3 offset = new Vector3(1.35f,2f,0);
+    private Vector3 offset = new Vector3(0,2f,0);
     void Update(){
         if (playerCollider.IsTouching(chestCollider)){
             if (Input.GetKeyDown(KeyCode.E)) {

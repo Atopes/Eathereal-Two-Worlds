@@ -12,7 +12,7 @@ public class Respawn : MonoBehaviour {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
     }
     private void Update() {
-        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(KeyCode.O)) { // Checks if player is touching the respawn point
+        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(KeyCode.E)) { // Checks if player is touching the respawn point
             UpdateRespawnPoint();
             SetHpToMax();
             particles.Play();
@@ -24,12 +24,18 @@ public class Respawn : MonoBehaviour {
     public void RespawnPlayer() {
         FindObjectOfType<PlayerMovement>().ResetVelocity();
         player.transform.position = PlayerStatistics.PlayerRespawnPoint; // Changes players current location
-        SetHpToMax(); // Sets players hp to maximum
+        PlayerMovement.canMove=true;
+        StartCoroutine(healBugFix()); // Sets players hp to maximum
         particles.Play(); // Starts the particle effect
     }
     private void SetHpToMax(){ // Sets players hp to maximum
         PlayerStatistics.currentHP = PlayerStatistics.healthPoints;
         healthBar.healthText.text = PlayerStatistics.currentHP + "/" + PlayerStatistics.healthPoints;
         healthBar.slider.value = PlayerStatistics.currentHP;
+    }
+    IEnumerator healBugFix()
+    {
+        yield return new WaitForSecondsRealtime((float)0.35); // Waits 0.3 s lol
+        SetHpToMax();
     }
 }

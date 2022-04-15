@@ -11,19 +11,19 @@ public class HealingZone : MonoBehaviour
         if (playerCollision.IsTouching(zoneCollision)) { //Checking for collision 
             if (!isIn) {
                 isIn = true; // Setting player state in the hazard zone
-                StartCoroutine(DamageOverTIme()); // Starting Coroutine for taking dmg over time
+                StartCoroutine(HealOverTime()); // Starting Coroutine for taking dmg over time
             }
         }
         else {
             if (isIn){
                 isIn = false; // Setting player state out of hazard zone
-                StopCoroutine(DamageOverTIme()); // Stoping Coroutine for taking dmg over time
+                StopCoroutine(HealOverTime()); // Stoping Coroutine for taking dmg over time
             }
         }
     }
-    IEnumerator DamageOverTIme(){//Damage over time Courutine , while in hazard zone deals 1 dmg each second
+    IEnumerator HealOverTime(){//Damage over time Courutine , while in hazard zone deals 1 dmg each second
         while (isIn){
-            playerStatistics.takeDamage(-1);
+            playerStatistics.healPlayer(1);
             yield return new WaitForSeconds(1f);
         }
     }
