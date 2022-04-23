@@ -15,7 +15,7 @@ public class DialogueTrigger : MonoBehaviour
         if (playerMovement.playerColision.IsTouching(triggerArea)){
             if (Input.GetKeyDown(KeyCode.E) && FindObjectOfType<DialogueManager>().getState() == false){
                 TriggerDialogue();
-            }else if(Input.GetKeyDown(KeyCode.E) && FindObjectOfType<DialogueManager>().getState() == true)
+            }else if (Input.GetKeyDown(KeyCode.E) && FindObjectOfType<DialogueManager>().getState() == true)
             {
                 FindObjectOfType<DialogueManager>().DisplayNextSentence();
             }
@@ -28,7 +28,7 @@ public class DialogueTrigger : MonoBehaviour
                 prompt.SetActive(false);
                 isPromptUp = false;
             }
-            FindObjectOfType<DialogueManager>().EndDialogue();
+          //  FindObjectOfType<DialogueManager>().EndDialogue();
         }
     }
     public void TriggerDialogue()

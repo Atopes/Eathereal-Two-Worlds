@@ -11,6 +11,9 @@ public class EnemyController : MonoBehaviour{
     public float movementSpeed = 2f,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
+    private Vector3 seekDistance = new Vector3(8f, 0); //line of sight
+    public GameObject eye;
+    private bool seenPlayer=false;
     void Start() {
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
@@ -23,8 +26,22 @@ public class EnemyController : MonoBehaviour{
         if (enemyCollision.IsTouching(playerCollision)){ //Checking for collision with player
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
         }
-        //Movement 
-        if(enemyRB.velocity.x > maximumVel && movement.x > 0){
+        RaycastHit2D hit = Physics2D.Linecast(eye.transform.position, eye.transform.position + (seekDistance*movement.x), 1 << LayerMask.NameToLayer("Player"));
+        if (hit.collider != null){
+            maximumVel = 4;
+            seenPlayer = true;
+        }
+        if (hit.collider == null){
+            if(maximumVel == 4){
+                maximumVel = 2;
+            }
+            if (seenPlayer){
+                StartCoroutine(Seek());
+            }
+
+        }
+            //Movement 
+            if (enemyRB.velocity.x > maximumVel && movement.x > 0){
             enemyRB.velocity = new Vector2(maximumVel,enemyRB.velocity.y);
         }else if(enemyRB.velocity.x < -maximumVel && movement.x < 0){
             enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
@@ -48,6 +65,23 @@ public class EnemyController : MonoBehaviour{
         if (healthPoints <= 0) {
             Destroy(gameObject); // Destroys enemy when out of health
         }
+    }
+    IEnumerator Seek()
+    {
+        yield return new WaitForSecondsRealtime((float)1);
+        if(movement.x == 1){
+            if(playerCollision.transform.position.x < enemyCollision.transform.position.x){
+                movement.x = -1;
+                Flip();
+            }
+        }else if (movement.x==-1){
+            if(playerCollision.transform.position.x > enemyCollision.transform.position.x)
+            {
+                movement.x = 1;
+                Flip();
+            }
+        }
+        seenPlayer = false;
     }
 
 }
