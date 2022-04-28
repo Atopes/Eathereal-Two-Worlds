@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    public GameObject MenuPanel;
+    public GameObject SettingsPanel;
     public void NewGame()
     {
         SceneManager.LoadScene(1);
@@ -11,16 +13,6 @@ public class MainMenuScript : MonoBehaviour
     public void LoadGame()
     {
         Debug.Log("hehe");
-    }
-
-    public void Settings()
-    {
-        SceneManager.LoadScene("Settings");
-    }
-
-    public void Back()
-    {
-        SceneManager.LoadScene("MainMenu");
     }
 
     public void Exit()

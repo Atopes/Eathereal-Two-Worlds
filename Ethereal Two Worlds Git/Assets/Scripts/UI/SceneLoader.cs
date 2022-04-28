@@ -10,7 +10,7 @@ public class SceneLoader : MonoBehaviour
 
     public void Start()
     {
-        LoadScene(1);
+        LoadScene(2);
     }
 
     public void LoadScene(int levelIndex)

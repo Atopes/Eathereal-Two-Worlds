@@ -224,11 +224,11 @@ public class PlayerMovement : MonoBehaviour
         isShooting = false;
     }
     IEnumerator Slash() {
-        yield return new WaitForSecondsRealtime((float)0.5);
+        yield return new WaitForSecondsRealtime((float)1);
         isAttacking = false;
     }
     IEnumerator SlashTimer(){ 
-        yield return new WaitForSecondsRealtime((float)0.15);
+        yield return new WaitForSecondsRealtime((float)0.2);
         if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeCollider.IsTouchingLayers(1 << layerEnemies))
         { // Checks if player melee attack collider is touching anything on damageAble layer
             playerMeleeCollider.enabled = false;
