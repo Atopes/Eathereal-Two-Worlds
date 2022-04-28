@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour{
         }else if(enemyRB.velocity.x < -maximumVel && movement.x < 0){
             enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
         }
-        if (wallDetection.IsTouchingLayers(1 << layerWalls)|| !platformDetection.IsTouchingLayers(1 << layerPlatforms) || wallDetection.IsTouchingLayers(1 << layerDestroyable)){ //Checks if the enemy is touching a wall,damageableObject or platform
+        if (wallDetection.IsTouchingLayers(1 << layerWalls)|| !platformDetection.IsTouchingLayers(1 << layerPlatforms) || wallDetection.IsTouchingLayers(1 << layerDestroyable) || wallDetection.IsTouchingLayers(1 << layerPlatforms)){ //Checks if the enemy is touching a wall,damageableObject or platform
             if (enemyRB.velocity.y > -0.1){ // Should the enemy be falling it wont start spinning xd
                 movement.x = -movement.x; // Changes the direction enemy is moving in
                 enemyRB.velocity = new Vector2(0, enemyRB.velocity.y); // Nulifies the enemies momentum when changing directions
