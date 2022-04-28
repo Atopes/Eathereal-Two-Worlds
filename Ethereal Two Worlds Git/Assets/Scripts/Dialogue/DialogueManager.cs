@@ -6,54 +6,44 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TextMeshProUGUI nameText,dialogueText;
-    public GameObject DialogueBoxes;
-    public bool isDialogueUp=false;
-    private Queue<string> sentences;
-    void Start()
-    {
-        sentences = new Queue<string>();
+    public TextMeshProUGUI nameText,dialogueText; // Reference for the dialogue window name and text that gives information
+    public GameObject DialogueBoxes; // Whole DialogueBoxes GameObject 
+    public bool isDialogueUp=false; // Monitors if Dialogue window is up 
+    private Queue<string> sentences; // All the sentences that are going to play
+    void Start(){
+        sentences = new Queue<string>(); // Defines the sentences Queue
     }
-    public void StartDialogue(Dialogue dialogue)
-    {
-        DialogueBoxes.SetActive(true);
-        isDialogueUp = true;
-        nameText.text = dialogue.name;
-        sentences.Clear();
-
-        foreach(string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
+    public void StartDialogue(Dialogue dialogue){ // Starts the dialogue , wow
+        DialogueBoxes.SetActive(true); // Turns the dialogueBoxes window active
+        isDialogueUp = true; // Changes the state
+        nameText.text = dialogue.name; // Sets the dialogue window name
+        sentences.Clear(); // Clears all text in dialogue window except the name
+        foreach(string sentence in dialogue.sentences){
+            sentences.Enqueue(sentence); // Q's the sentences
         }
-        DisplayNextSentence();
+        DisplayNextSentence(); // Shows the next sentence , yes
     }
-
-    public void DisplayNextSentence()
-    {
-        if (sentences.Count == 0)
-        {
-            EndDialogue();
+    public void DisplayNextSentence(){
+        if (sentences.Count == 0){
+            EndDialogue(); // Ends the dialogue if there are no more sentences to play
             return;
         }
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        string sentence = sentences.Dequeue(); // Takes the displayed sentence out of the Q
+        StopAllCoroutines(); // Stops the text typing animation
+        StartCoroutine(TypeSentence(sentence)); // Start typing the current sentece
     }
     IEnumerator TypeSentence(string sentence) {
-        dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray())
-        {
-            dialogueText.text += letter;
+        dialogueText.text = ""; // Clears the text area
+        foreach(char letter in sentence.ToCharArray()){
+            dialogueText.text += letter; // Types each letter 1 by 1 to the text area
             yield return null;
         }
     }
-    public void EndDialogue()
-    {
-        DialogueBoxes.SetActive(false);
+    public void EndDialogue(){
+        DialogueBoxes.SetActive(false); // Ends the Dialogue ,damn
         isDialogueUp = false;
     }
-    public bool getState()
-    {
+    public bool getState(){  // Returns the state of the dialogue window
         return isDialogueUp;
     }
 }

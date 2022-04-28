@@ -2,10 +2,8 @@ using UnityEngine;
 public class JumpCapsule : MonoBehaviour{
     private PlayerMovement playerMovement; //Reference to the playerMovement script
     public CapsuleCollider2D objectCollider; // Reference to the objects collider
-
-    private void Start()
-    {
-        playerMovement = FindObjectOfType<PlayerMovement>();
+    private void Start() {
+        playerMovement = FindObjectOfType<PlayerMovement>(); // Defines playerMovement script
     }
     void Update(){
         if (playerMovement.playerColision.IsTouching(objectCollider)) { // Checking for collisio between player collider and object collider
