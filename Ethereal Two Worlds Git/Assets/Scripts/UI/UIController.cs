@@ -11,6 +11,12 @@ public class UIController : MonoBehaviour
     void Start() {
         coinsText.text = PlayerStatistics.coins + ""; // Setting the correct number of player's coins on reload and start
     }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            Application.Quit();
+        }
+    }
     public void RestartLevel(){
         respawn.RespawnPlayer(); // Respawns player
     }
