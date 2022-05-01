@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-   // public SpriteRenderer slashSprite; // Reference to the slash sprite
+    private DialogueManager dialogueManager;
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle; // Reference to the dash particle
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         layerEnemies = LayerMask.NameToLayer("Enemies");
         layerPlayer = LayerMask.NameToLayer("Player");
         playerScale = player.transform.localScale; // Defines players starting local scale
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
     void Update()
     {
@@ -161,6 +162,11 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Rising", false);
         }
+        if(dialogueManager.getState()){
+            PlayerRigidBody.velocity = new Vector2(0,0);
+            movement = new Vector2(0,0);
+            canMove = false;
+        }
     }
     private void FixedUpdate()
     {
@@ -224,11 +230,11 @@ public class PlayerMovement : MonoBehaviour
         isShooting = false;
     }
     IEnumerator Slash() {
-        yield return new WaitForSecondsRealtime((float)0.5);
+        yield return new WaitForSecondsRealtime((float)1);
         isAttacking = false;
     }
     IEnumerator SlashTimer(){ 
-        yield return new WaitForSecondsRealtime((float)0.15);
+        yield return new WaitForSecondsRealtime((float)0.2);
         if (playerMeleeCollider.IsTouchingLayers(1 << layerDamageableObjects) || playerMeleeCollider.IsTouchingLayers(1 << layerEnemies))
         { // Checks if player melee attack collider is touching anything on damageAble layer
             playerMeleeCollider.enabled = false;
