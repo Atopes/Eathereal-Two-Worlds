@@ -42,6 +42,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue(){
         DialogueBoxes.SetActive(false); // Ends the Dialogue ,damn
         isDialogueUp = false;
+        PlayerMovement.canMove = true;
     }
     public bool getState(){  // Returns the state of the dialogue window
         return isDialogueUp;
