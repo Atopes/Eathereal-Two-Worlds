@@ -7,7 +7,7 @@ public class MainMenuScript : MonoBehaviour
     public GameObject SettingsPanel;
     public void NewGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("StartCutscene");
     }
 
     public void LoadGame()
