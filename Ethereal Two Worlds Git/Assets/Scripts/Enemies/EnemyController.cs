@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour{
     public BoxCollider2D playerCollision,enemyCollision,wallDetection,platformDetection; // Colliders attached to the enemy
     public PlayerStatistics playerStatistics; //Reference to the PlayerStatistics script so our enemy can deal damage
     public Rigidbody2D enemyRB; // Enemies rigid body for smooth movement
-    private int layerWalls,layerPlatforms,layerDestroyable; // Reference to the different layers
+    private int layerWalls,layerPlatforms,layerDestroyable,layerEnemies; // Reference to the different layers
     public float movementSpeed = 2f,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
@@ -18,8 +18,10 @@ public class EnemyController : MonoBehaviour{
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
         layerDestroyable = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
+        layerEnemies = LayerMask.NameToLayer("Enemies");
         enemyScale = gameObject.transform.localScale; // Reference to the starting local scale of enemy
         movement.x = 1; // Way the character starts moving once spawned
+        Physics2D.IgnoreLayerCollision(layerEnemies, layerEnemies, true);
     }
     // Update is called once per frame
     void Update(){
