@@ -18,8 +18,42 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
+    private KeyCode jumpKey, dashKey, attackKey, castKey;
+    
     private void Start()
     {
+        if (PlayerPrefs.HasKey("Jump"))
+        {
+            jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));
+        } else
+        {
+            jumpKey = KeyCode.Space;
+        }
+        if (PlayerPrefs.HasKey("Dash"))
+        {
+            dashKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash"));
+        }
+        else
+        {
+            dashKey = KeyCode.LeftShift;
+        }
+        if (PlayerPrefs.HasKey("Attack"))
+        {
+            attackKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack"));
+        }
+        else
+        {
+            attackKey = KeyCode.C;
+        }
+        if (PlayerPrefs.HasKey("Cast"))
+        {
+            castKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cast"));
+        }
+        else
+        {
+            castKey = KeyCode.X;
+        }
+
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
         layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
@@ -53,14 +87,14 @@ public class PlayerMovement : MonoBehaviour
         }
         if (!canDoubleJump)
         { // Jump mechanics if player can't double jump
-            if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0)
+            if (Input.GetKeyDown(jumpKey) && coyoteTimeCounter > 0)
             {// Checking if space is pressed and if the player is NOT in the air
                 PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse); // Adding a force that makes the player jump 
             }
         }
         else
         {  // Jump mechanics if player can double jump
-            if (Input.GetKeyDown(KeyCode.Space) && extrajumps >= 1)
+            if (Input.GetKeyDown(jumpKey) && extrajumps >= 1)
             { // Checking if space is pressed and player has any extra jumps
                 PlayerRigidBody.velocity = new Vector2(movement.x, 0); // Resets the Y axis velocity of player RB 
                 PlayerRigidBody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse); // Jumps again
@@ -78,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (canWallJump)
         { // Checking if player can wall jump
-            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(KeyCode.Space))
+            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(jumpKey))
             { // Checking if player is next to a wall
                 isGrounded = true; // Making him grounded = resseting his extra jumps
             }
@@ -91,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime; // Subtracts current time out of coyote timer
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(jumpKey))
         {
             PlayerRigidBody.velocity = new Vector2(movement.x, (PlayerRigidBody.velocity.y / 2)); // Makes player jump lower upon quick space release
             coyoteTimeCounter = 0; // Sets coyote timer to 0
@@ -118,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetInteger("Mov_Speed", 0);
         }
         //Dash mechanics
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(dashKey))
         { // Looking for dash inputs
             if (!isDashing)
             { // Checking if player is not already dashing 
@@ -140,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         // Shooting mechanics
-        if (Input.GetKeyDown(KeyCode.X) && !isShooting && canShoot)
+        if (Input.GetKeyDown(castKey) && !isShooting && canShoot)
         { //Checking if X is pressed and player can shoot
             animator.SetTrigger("Cast");
             StartCoroutine(preShootTimer());            
@@ -155,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Melee attack mechanics
-        if (Input.GetKeyDown(KeyCode.C) && !isAttacking){ // Checking if C is pressed and if player can attack
+        if (Input.GetKeyDown(attackKey) && !isAttacking){ // Checking if C is pressed and if player can attack
             animator.SetTrigger("Attack");
             StartCoroutine(SlashTimer());
             StartCoroutine(Slash());
