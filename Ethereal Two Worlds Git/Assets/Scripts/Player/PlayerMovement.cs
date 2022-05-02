@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         layerPlayer = LayerMask.NameToLayer("Player");
         playerScale = player.transform.localScale; // Defines players starting local scale
         dialogueManager = FindObjectOfType<DialogueManager>();
+        gameObject.transform.position = PlayerStatistics.PlayerRespawnPoint;
     }
     void Update()
     {
@@ -132,6 +133,9 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerRigidBody.velocity = new Vector2(movement.x, (PlayerRigidBody.velocity.y / 2)); // Makes player jump lower upon quick space release
             coyoteTimeCounter = 0; // Sets coyote timer to 0
+        }
+        if(PlayerRigidBody.velocity.y > 16){
+            PlayerRigidBody.velocity = new Vector2(movement.x, 16);
         }
         //Changes the side the character is facing 
         if (movement.x == 1 && !isFacingRight)

@@ -33,8 +33,7 @@ public class Respawn : MonoBehaviour {
         healthBar.healthText.text = PlayerStatistics.currentHP + "/" + PlayerStatistics.healthPoints;
         healthBar.slider.value = PlayerStatistics.currentHP;
     }
-    IEnumerator healBugFix()
-    {
+    IEnumerator healBugFix(){
         yield return new WaitForSecondsRealtime((float)0.35); // Waits 0.3 s lol
         SetHpToMax();
     }

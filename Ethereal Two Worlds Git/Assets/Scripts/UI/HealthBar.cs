@@ -15,6 +15,7 @@ public class HealthBar : MonoBehaviour
     private void Start(){
         playerMovement = FindObjectOfType<PlayerMovement>();
         playerStatistics = FindObjectOfType<PlayerStatistics>();
+        slider.value = PlayerStatistics.currentHP;
         setMaxHealth();
         setMaxHealthText();
     }

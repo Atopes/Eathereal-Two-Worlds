@@ -19,7 +19,7 @@ public class ShopKeeper : MonoBehaviour
     public Sprite imageItem1, imageItem2, imageItem3,circle;
     public string itemName1, itemName2, itemName3, itemDescription1, itemDescription2, itemDescription3;
     public int itemPrice1, itemPrice2, itemPrice3;
-    private bool itemBought1=false, itemBought2 = false, itemBought3 = false;
+    private static bool itemBought1=false, itemBought2 = false, itemBought3 = false;
 
 
     void Start(){
@@ -39,6 +39,7 @@ public class ShopKeeper : MonoBehaviour
         TMprice1.text = itemPrice1.ToString();
         TMprice2.text = itemPrice2.ToString();
         TMprice3.text = itemPrice3.ToString();
+        checkItems();
     }
     void Update()
     {
@@ -91,6 +92,22 @@ public class ShopKeeper : MonoBehaviour
             coinsText.text = PlayerStatistics.coins.ToString();
             itemBought3 = true;
             Coins.doubleChance = 10;
+            imageCross3.sprite = circle;
+            imageCross3.color = new Color(1, 1, 1, 1);
+        }
+    }
+    public void checkItems(){
+        if (itemBought1){
+            imageCross1.sprite = circle;
+            imageCross1.color = new Color(1, 1, 1, 1);
+        }
+        if (itemBought2)
+        {
+            imageCross2.sprite = circle;
+            imageCross2.color = new Color(1, 1, 1, 1);
+        }
+        if (itemBought3)
+        {
             imageCross3.sprite = circle;
             imageCross3.color = new Color(1, 1, 1, 1);
         }
