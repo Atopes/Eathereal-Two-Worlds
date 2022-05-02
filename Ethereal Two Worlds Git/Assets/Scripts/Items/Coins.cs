@@ -8,13 +8,17 @@ public class Coins : MonoBehaviour
     public PlayerStatistics playerStatistics;
    // public UIController uiController;
     public int moneyAmount=1;
+    public static int doubleChance = 0;
+    
     public void Start()
     {
         playerColision = GameObject.Find("Player").GetComponent<BoxCollider2D>();
     }
     void FixedUpdate(){
-            if (playerColision.IsTouching(coinCollision)){ //Actually checking for the collision{
-               // uiController.SetCoins(moneyAmount);
+            if (playerColision.IsTouching(coinCollision)){ //Actually checking for the collision
+            if (Random.Range(1,101) <= doubleChance){
+                FindObjectOfType<UIController>().SetCoins(moneyAmount);
+            }
             FindObjectOfType<UIController>().SetCoins(moneyAmount);
             Destroy(gameObject); //Destroying the object in the scene
             }
