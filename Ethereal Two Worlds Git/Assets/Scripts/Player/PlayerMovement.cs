@@ -142,10 +142,16 @@ public class PlayerMovement : MonoBehaviour
         // Shooting mechanics
         if (Input.GetKeyDown(KeyCode.X) && !isShooting && canShoot)
         { //Checking if X is pressed and player can shoot
-
-            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + ((float)0.8 * playerScale.x), player.gameObject.transform.position.y - (float)0.8, 1), Quaternion.identity); // Spawns a bullet
-            isShooting = true;
+            animator.SetTrigger("Cast");
+            StartCoroutine(preShootTimer());            
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
+        }
+
+        IEnumerator preShootTimer()
+        {
+            yield return new WaitForSecondsRealtime((float)0.4);
+            Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + ((float)0.5 * playerScale.x), player.gameObject.transform.position.y - (float)1, 1), Quaternion.identity); // Spawns a bullet
+            isShooting = true;
         }
 
         // Melee attack mechanics
