@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
         }
+        else{
+            movement = new Vector2(0, 0);
+        }
         //Jump mechanics
         if (isDashFall)
         {
