@@ -13,6 +13,6 @@ public class StartGameAfterCutScene : MonoBehaviour
     IEnumerator waitForCutscene()
     {
         yield return new WaitForSecondsRealtime(16);
-        SceneManager.LoadScene("TestArea");
+        SceneManager.LoadScene("LoadingScreen1");
     }
 }
