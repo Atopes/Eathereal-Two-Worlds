@@ -13,7 +13,8 @@ public class EnemyController : MonoBehaviour{
     Vector2 movement; // Vector used to define which way is the enemy moving
     private Vector3 seekDistance = new Vector3(8f, 0); //line of sight
     public GameObject eye;
-    private bool seenPlayer=false;
+    private bool seenPlayer=false, canAttack = true;
+    public Animator animator;
     void Start() {
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
@@ -32,10 +33,16 @@ public class EnemyController : MonoBehaviour{
         if (hit.collider != null){
             maximumVel = 4;
             seenPlayer = true;
+            animator.SetBool("Running", true);
+            if (canAttack)
+            {
+                Attack();
+            }
         }
         if (hit.collider == null){
             if(maximumVel == 4){
                 maximumVel = 2;
+                animator.SetBool("Running", false);
             }
             if (seenPlayer){
                 StartCoroutine(Seek());
@@ -84,6 +91,30 @@ public class EnemyController : MonoBehaviour{
             }
         }
         seenPlayer = false;
+    }
+
+    IEnumerator AttackTimer()
+    {
+        yield return new WaitForSecondsRealtime((float)0.15);
+        maximumVel = 4;
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSecondsRealtime((float)1.25);
+        canAttack = true;
+    }
+
+    private void Attack()
+    {
+        if (enemyRB.transform.position.x - playerCollision.transform.position.x < 1f)
+        {
+            canAttack = false;
+            maximumVel = 16;
+            animator.SetTrigger("Attack");
+            StartCoroutine(AttackTimer());
+            StartCoroutine(AttackCooldown());
+        }
     }
 
 }
