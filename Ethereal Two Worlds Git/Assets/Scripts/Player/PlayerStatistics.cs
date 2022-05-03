@@ -1,17 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    public static int healthPoints=3,currentHP=3,coins=0,meleeDamage =3; //Different values
+    public static int healthPoints,currentHP,coins,meleeDamage; //Different values
     public HealthBar healthBar; // Reference to the Health Bar script
     public PlayerMovement playerMovement;
-    public static Vector3 PlayerRespawnPoint= new Vector3(207,(float) -3.2,1);
+    public static Vector3 PlayerRespawnPoint;
     public bool canTakeDamage = true; // Defines if player can take damage - is invincible
     public Animator animator;
     private void Start(){
-        PlayerRespawnPoint = gameObject.transform.position; // Sets the respawn point to the players starting location
+        PlayerRespawnPoint = new Vector3(PlayerPrefs.GetFloat("RespawnX"), PlayerPrefs.GetFloat("RespawnY"), 1);
+        gameObject.transform.position = PlayerRespawnPoint;
+        healthPoints = PlayerPrefs.GetInt("MaxHealth");
+        currentHP = healthPoints;
+        coins = PlayerPrefs.GetInt("Coins");
+        meleeDamage = PlayerPrefs.GetInt("MeleeDmg");
+        PlayerPrefs.SetInt("Scene", SceneManager.GetActiveScene().buildIndex);
     }
     public void takeDamage(int health){ // Method to deal damage to the player
         if (canTakeDamage && currentHP > 0)
@@ -28,7 +35,7 @@ public class PlayerStatistics : MonoBehaviour
     IEnumerator damageTimer()
     {
         yield return new WaitForSecondsRealtime((float)0.3); // Waits 0.3 s lol
-            canTakeDamage = true; // Makes player mortal  
+        canTakeDamage = true; // Makes player mortal  
     }
     
     public void healPlayer(int health)
