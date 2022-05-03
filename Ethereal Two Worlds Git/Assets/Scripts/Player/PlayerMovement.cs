@@ -18,10 +18,18 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
-    private KeyCode jumpKey, dashKey, attackKey, castKey;
+    private KeyCode interactKey, jumpKey, dashKey, attackKey, castKey;
     
     private void Start()
     {
+        if (PlayerPrefs.HasKey("Interact"))
+        {
+            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        }
+        else
+        {
+            interactKey = KeyCode.E;
+        }
         if (PlayerPrefs.HasKey("Jump"))
         {
             jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));

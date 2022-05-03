@@ -8,12 +8,21 @@ public class Respawn : MonoBehaviour {
     public HealthBar healthBar; // Reference to the healthBar script
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
     private Vector3 RespawnPointLocation; // World position of the players respawn point
-    private Vector3 enemiesLocation;
+    private KeyCode interactKey;
+
     private void Start() {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
+        if (PlayerPrefs.HasKey("Interact"))
+        {
+            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        }
+        else
+        {
+            interactKey = KeyCode.E;
+        }
     }
     private void Update() {
-        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(KeyCode.E)) { // Checks if player is touching the respawn point
+        if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(interactKey)) { // Checks if player is touching the respawn point
             UpdateRespawnPoint();
             SetHpToMax();
             particles.Play();
