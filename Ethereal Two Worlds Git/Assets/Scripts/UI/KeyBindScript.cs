@@ -13,6 +13,7 @@ public class KeyBindScript : MonoBehaviour
     private void Start()
     {
         LoadKeys();
+        SaveKeys();
 
         interact.text = keys["Interact"].ToString();
         jump.text = keys["Jump"].ToString();
@@ -55,6 +56,7 @@ public class KeyBindScript : MonoBehaviour
         PlayerPrefs.SetString("Dash", keys["Dash"].ToString());
         PlayerPrefs.SetString("Attack", keys["Attack"].ToString());
         PlayerPrefs.SetString("Cast", keys["Cast"].ToString());
+        PlayerPrefs.Save();
     }
 
     private void LoadKeys()
@@ -99,9 +101,5 @@ public class KeyBindScript : MonoBehaviour
         {
             keys.Add("Cast", KeyCode.X);
         }
-    }
-    private void OnDestroy()
-    {
-        SaveKeys();
     }
 }
