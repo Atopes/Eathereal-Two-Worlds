@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    public static int healthPoints=3,currentHP=3,coins=0,meleeDamage =3; //Different values
+    public static int healthPoints,currentHP,coins,meleeDamage; //Different values
     public HealthBar healthBar; // Reference to the Health Bar script
     public PlayerMovement playerMovement;
     public static Vector3 PlayerRespawnPoint= new Vector3(-35,(float) -3.5,1);
@@ -12,6 +12,10 @@ public class PlayerStatistics : MonoBehaviour
     public Animator animator;
     private void Start(){
         PlayerRespawnPoint = gameObject.transform.position; // Sets the respawn point to the players starting location
+        healthPoints = PlayerPrefs.GetInt("MaxHealth");
+        currentHP = PlayerPrefs.GetInt("CurrHP");
+        coins = PlayerPrefs.GetInt("Coins");
+        meleeDamage = PlayerPrefs.GetInt("MeleeDmg");
     }
     public void takeDamage(int health){ // Method to deal damage to the player
         if (canTakeDamage && currentHP > 0)
