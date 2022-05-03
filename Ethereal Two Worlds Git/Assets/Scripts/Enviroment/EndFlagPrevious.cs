@@ -12,7 +12,7 @@ public class EndFlagPrevious : MonoBehaviour
         if (PlayerCollider.IsTouching(FlagCollider)){ //Looking for collision with the "flag"
             PlayerMovement.isFacingRight = false;
             PlayerStatistics.PlayerRespawnPoint = new Vector3(prevXposition, prevYposition, 1);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); //Loads in next scene , cen be re-done to open some sort of menu
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2); //Loads in next scene , cen be re-done to open some sort of menu
         }
 
     }

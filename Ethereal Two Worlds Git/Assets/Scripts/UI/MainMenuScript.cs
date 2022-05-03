@@ -11,7 +11,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("hehe");
+        SceneManager.LoadScene(PlayerPrefs.GetInt("Scene"));
     }
 
     public void Exit()
@@ -30,11 +30,14 @@ public class MainMenuScript : MonoBehaviour
         PlayerPrefs.SetString("Attack", keys[3]);
         PlayerPrefs.SetString("Cast", keys[4]);
         PlayerPrefs.SetInt("MaxHealth", 3);
-        PlayerPrefs.SetInt("CurrHP", 3);
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("MeleeDmg", 3);
-        PlayerPrefs.SetFloat("RespawnX", 0f);
+        PlayerPrefs.SetFloat("RespawnX", -35f);
         PlayerPrefs.SetFloat("RespawnY", -3.5f);
+        PlayerPrefs.SetInt("ItemBought1", 0);
+        PlayerPrefs.SetInt("ItemBought2", 0);
+        PlayerPrefs.SetInt("ItemBought3", 0);
+        PlayerPrefs.SetInt("Scene", 0);
         PlayerPrefs.Save();
     }
 }

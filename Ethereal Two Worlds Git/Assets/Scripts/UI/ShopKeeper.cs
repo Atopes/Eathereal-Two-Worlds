@@ -78,7 +78,9 @@ public class ShopKeeper : MonoBehaviour
             PlayerStatistics.coins -= itemPrice2;
             coinsText.text = PlayerStatistics.coins.ToString();
             itemBought2 = true;
-            PlayerStatistics.healthPoints = 4;
+            PlayerStatistics.healthPoints++;
+            PlayerPrefs.SetInt("MaxHealth", PlayerStatistics.healthPoints);
+            PlayerPrefs.Save();
             PlayerStatistics.currentHP += 1;
             slider.maxValue = PlayerStatistics.healthPoints;
             slider.value = PlayerStatistics.currentHP;
