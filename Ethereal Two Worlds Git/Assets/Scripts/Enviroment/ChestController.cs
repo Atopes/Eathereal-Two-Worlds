@@ -10,9 +10,21 @@ public class ChestController : MonoBehaviour
     public Animator animator;
     private bool isUsed = false, closed = true,promptUp=false;
     private Vector3 offset = new Vector3(0,2f,0);
+    private KeyCode interactKey;
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Interact"))
+        {
+            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        }
+        else
+        {
+            interactKey = KeyCode.E;
+        }
+    }
     void Update(){
         if (playerCollider.IsTouching(chestCollider)){
-            if (Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetKeyDown(interactKey)) {
                 if (closed) {
                     if (!isUsed) {
                         Instantiate(spawnItemPrefab, new Vector3(gameObject.transform.position.x + offset.x,gameObject.transform.position.y + offset.y,1), Quaternion.identity);

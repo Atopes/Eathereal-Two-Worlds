@@ -20,9 +20,17 @@ public class ShopKeeper : MonoBehaviour
     public string itemName1, itemName2, itemName3, itemDescription1, itemDescription2, itemDescription3;
     public int itemPrice1, itemPrice2, itemPrice3;
     private static bool itemBought1=false, itemBought2 = false, itemBought3 = false;
-
+    private KeyCode interactKey;
 
     void Start(){
+        if (PlayerPrefs.HasKey("Interact"))
+        {
+            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        }
+        else
+        {
+            interactKey = KeyCode.E;
+        }
         healthBar = FindObjectOfType<HealthBar>();
         image1.sprite = imageItem1;
         image2.sprite = imageItem2;
@@ -47,7 +55,7 @@ public class ShopKeeper : MonoBehaviour
             if (!prompt.activeSelf){
                 prompt.SetActive(true);
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(interactKey))
             {
                 PlayerMovement.canMove = !PlayerMovement.canMove;
                 shopUI.SetActive(!PlayerMovement.canMove);

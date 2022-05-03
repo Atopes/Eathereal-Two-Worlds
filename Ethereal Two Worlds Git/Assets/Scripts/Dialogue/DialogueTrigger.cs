@@ -10,14 +10,24 @@ public class DialogueTrigger : MonoBehaviour
     private PlayerMovement playerMovement; // Reference to the playerMovement script
     public GameObject prompt; // Prompt that shows up near interactable items
     private bool isPromptUp; // State of the prompt
+
+    private KeyCode interactKey;
     private void Start(){
         playerMovement = FindObjectOfType<PlayerMovement>(); // Defines playerMovement script
+        if (PlayerPrefs.HasKey("Interact"))
+        {
+            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        }
+        else
+        {
+            interactKey = KeyCode.E;
+        }
     }
     public void Update(){
         if (playerMovement.playerColision.IsTouching(triggerArea)){
-            if (Input.GetKeyDown(KeyCode.E) && FindObjectOfType<DialogueManager>().getState() == false){
+            if (Input.GetKeyDown(interactKey) && FindObjectOfType<DialogueManager>().getState() == false){
                 TriggerDialogue(); // Starts the dialogue if player is in the right area , pressed E and there is no other dialogue on the screen
-            }else if (Input.GetKeyDown(KeyCode.E) && FindObjectOfType<DialogueManager>().getState() == true){
+            }else if (Input.GetKeyDown(interactKey) && FindObjectOfType<DialogueManager>().getState() == true){
                 FindObjectOfType<DialogueManager>().DisplayNextSentence(); // Displays the next sentence if the player pressed E and has an active dialogue
             }
             if (!isPromptUp){
