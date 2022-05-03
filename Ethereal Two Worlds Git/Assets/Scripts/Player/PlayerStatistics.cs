@@ -7,7 +7,7 @@ public class PlayerStatistics : MonoBehaviour
     public static int healthPoints,currentHP,coins,meleeDamage; //Different values
     public HealthBar healthBar; // Reference to the Health Bar script
     public PlayerMovement playerMovement;
-    public static Vector3 PlayerRespawnPoint= new Vector3(-35,(float) -3.5,1);
+    public static Vector3 PlayerRespawnPoint= new Vector3(207,(float) -3.2,1);
     public bool canTakeDamage = true; // Defines if player can take damage - is invincible
     public Animator animator;
     private void Start(){

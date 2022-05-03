@@ -8,10 +8,11 @@ public class EnemyController : MonoBehaviour{
     public PlayerStatistics playerStatistics; //Reference to the PlayerStatistics script so our enemy can deal damage
     public Rigidbody2D enemyRB; // Enemies rigid body for smooth movement
     private int layerWalls,layerPlatforms,layerDestroyable,layerEnemies; // Reference to the different layers
-    public float movementSpeed = 2f,maximumVel = 2f; // Movement speed of the enemy
+    public float movementSpeed = 0,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
     private Vector3 seekDistance = new Vector3(8f, 0); //line of sight
+    private Vector3 biteDistance = new Vector3(1f, 0); //line of sight
     public GameObject eye;
     private bool seenPlayer=false, canAttack = true;
     public Animator animator;
@@ -27,15 +28,23 @@ public class EnemyController : MonoBehaviour{
     }
     // Update is called once per frame
     void Update(){
+        RaycastHit2D left = Physics2D.Linecast(eye.transform.position, eye.transform.position - ((float)1.*seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D right = Physics2D.Linecast(eye.transform.position, eye.transform.position + ((float)1.5 * seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
+        if (left.collider != null || right.collider != null)
+        {
+            movementSpeed = 5;
+            animator.SetBool("Walking",true);
+        }
         if (enemyCollision.IsTouching(playerCollision)){ //Checking for collision with player
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
         }
         RaycastHit2D hit = Physics2D.Linecast(eye.transform.position, eye.transform.position + (seekDistance*movement.x), 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D bite = Physics2D.Linecast(eye.transform.position, eye.transform.position + (biteDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
         if (hit.collider != null){
             maximumVel = 4;
             seenPlayer = true;
             animator.SetBool("Running", true);
-            if (canAttack)
+            if (bite.collider != null && canAttack)
             {
                 Attack();
             }
@@ -51,7 +60,7 @@ public class EnemyController : MonoBehaviour{
 
         }
             //Movement 
-            if (enemyRB.velocity.x > maximumVel && movement.x > 0){
+        if (enemyRB.velocity.x > maximumVel && movement.x > 0){
             enemyRB.velocity = new Vector2(maximumVel,enemyRB.velocity.y);
         }else if(enemyRB.velocity.x < -maximumVel && movement.x < 0){
             enemyRB.velocity = new Vector2(-maximumVel, enemyRB.velocity.y);
@@ -76,7 +85,8 @@ public class EnemyController : MonoBehaviour{
             if (Random.Range(1,101) <= 40){
                 Instantiate(coinPrefab, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y, 1), Quaternion.identity);
             }
-            Destroy(gameObject); // Destroys enemy when out of health
+            animator.SetTrigger("Die");
+            StartCoroutine(dieTimer());
         }
     }
     IEnumerator Seek()
@@ -99,8 +109,16 @@ public class EnemyController : MonoBehaviour{
 
     IEnumerator AttackTimer()
     {
-        yield return new WaitForSecondsRealtime((float)0.15);
+        yield return new WaitForSecondsRealtime((float)0.25);
+        animator.SetTrigger("Attack");
         maximumVel = 4;
+    }
+    IEnumerator dieTimer()
+    {
+        maximumVel = 0;
+        canAttack = false;
+        yield return new WaitForSecondsRealtime((float)0.3);
+        Destroy(gameObject); // Destroys enemy when out of health
     }
 
     IEnumerator AttackCooldown()
@@ -110,15 +128,13 @@ public class EnemyController : MonoBehaviour{
     }
 
     private void Attack()
-    {
-        if (enemyRB.transform.position.x - playerCollision.transform.position.x < 1f)
-        {
+    {   
             canAttack = false;
             maximumVel = 16;
+            enemyRB.velocity = new Vector2(enemyRB.velocity.x *(float) 1.4, enemyRB.velocity.y);
             animator.SetTrigger("Attack");
             StartCoroutine(AttackTimer());
-            StartCoroutine(AttackCooldown());
-        }
+            StartCoroutine(AttackCooldown());   
     }
 
 }
