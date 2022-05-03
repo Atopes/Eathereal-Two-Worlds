@@ -8,8 +8,9 @@ public class ChestController : MonoBehaviour
     public BoxCollider2D chestCollider,playerCollider;
     public GameObject prompt;
     public Animator animator;
-    private bool isUsed = false, closed = true,promptUp=false;
+    private bool closed = true,promptUp=false;
     private Vector3 offset = new Vector3(0,2f,0);
+    private bool isUsed = false;
     void Update(){
         if (playerCollider.IsTouching(chestCollider)){
             if (Input.GetKeyDown(KeyCode.E)) {

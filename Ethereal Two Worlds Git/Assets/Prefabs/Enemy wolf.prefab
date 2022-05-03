@@ -204,6 +204,7 @@ MonoBehaviour:
   maximumVel: 2
   eye: {fileID: 5610632860939217209}
   animator: {fileID: 8604332765388301844}
+  coinPrefab: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
 --- !u!61 &8376177808042809530
 BoxCollider2D:
   m_ObjectHideFlags: 0

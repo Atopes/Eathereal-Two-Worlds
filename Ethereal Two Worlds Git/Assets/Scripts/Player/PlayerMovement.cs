@@ -62,6 +62,10 @@ public class PlayerMovement : MonoBehaviour
         playerScale = player.transform.localScale; // Defines players starting local scale
         dialogueManager = FindObjectOfType<DialogueManager>();
         gameObject.transform.position = PlayerStatistics.PlayerRespawnPoint;
+        if (!isFacingRight){
+            playerScale.x = (float)-1.32;
+            player.transform.localScale = playerScale;
+        }
     }
     void Update()
     {

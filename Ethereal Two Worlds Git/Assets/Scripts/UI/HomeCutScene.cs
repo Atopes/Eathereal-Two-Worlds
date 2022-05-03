@@ -8,7 +8,8 @@ public class HomeCutScene : MonoBehaviour
     public PlayableDirector playableDirector;
     public BoxCollider2D triggerArea,playerCollider;
     public GameObject prompt;
-    private bool isPrompUp=false,wasCutscenePlayed=false;
+    private bool isPrompUp=false;
+    private static bool wasCutscenePlayed = false;
     void Update(){
         if(playerCollider.IsTouching(triggerArea) && wasCutscenePlayed==false){
             if (!isPrompUp){

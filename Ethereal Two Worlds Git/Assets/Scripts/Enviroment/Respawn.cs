@@ -8,6 +8,7 @@ public class Respawn : MonoBehaviour {
     public HealthBar healthBar; // Reference to the healthBar script
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
     private Vector3 RespawnPointLocation; // World position of the players respawn point
+    private Vector3 enemiesLocation;
     private void Start() {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
     }

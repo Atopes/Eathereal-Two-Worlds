@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour{
     public GameObject eye;
     private bool seenPlayer=false, canAttack = true;
     public Animator animator;
+    public GameObject coinPrefab;
     void Start() {
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
@@ -72,6 +73,9 @@ public class EnemyController : MonoBehaviour{
     public void TakeDamage(int damage){
         healthPoints -= damage; // Damages enemy
         if (healthPoints <= 0) {
+            if (Random.Range(1,101) <= 40){
+                Instantiate(coinPrefab, new Vector3(gameObject.transform.position.x , gameObject.transform.position.y, 1), Quaternion.identity);
+            }
             Destroy(gameObject); // Destroys enemy when out of health
         }
     }
