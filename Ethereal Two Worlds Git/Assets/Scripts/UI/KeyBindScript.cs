@@ -12,6 +12,53 @@ public class KeyBindScript : MonoBehaviour
 
     private void Start()
     {
+        LoadKeys();
+
+        interact.text = keys["Interact"].ToString();
+        jump.text = keys["Jump"].ToString();
+        dash.text = keys["Dash"].ToString();
+        attack.text = keys["Attack"].ToString();
+        cast.text = keys["Cast"].ToString();
+    }
+
+    private void OnGUI()
+    {
+        if (currKey != null)
+        {
+            Event e = Event.current;
+            if (e.isKey)
+            {
+                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+                keys[currKey.name] = e.keyCode;
+                SaveChanged(currKey.name, e.keyCode);
+                PlayerPrefs.Save();
+                currKey.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = e.keyCode.ToString();
+                currKey = null;
+            }
+        }
+    }
+
+    public void ChangeKey(GameObject clicked)
+    {
+        currKey = clicked;
+    }
+
+    private void SaveChanged(string name, KeyCode key)
+    {
+        PlayerPrefs.SetString(name.Replace(" Button", ""), key.ToString());
+    }
+
+    private void SaveKeys()
+    {
+        PlayerPrefs.SetString("Interact", keys["Interact"].ToString());
+        PlayerPrefs.SetString("Jump", keys["Jump"].ToString());
+        PlayerPrefs.SetString("Dash", keys["Dash"].ToString());
+        PlayerPrefs.SetString("Attack", keys["Attack"].ToString());
+        PlayerPrefs.SetString("Cast", keys["Cast"].ToString());
+    }
+
+    private void LoadKeys()
+    {
         if (PlayerPrefs.HasKey("Interact"))
         {
             keys.Add("Interact", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact")));
@@ -22,8 +69,9 @@ public class KeyBindScript : MonoBehaviour
         }
         if (PlayerPrefs.HasKey("Jump"))
         {
-            keys.Add("Jump", (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump")));
-        } else
+            keys.Add("Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump")));
+        }
+        else
         {
             keys.Add("Jump", KeyCode.Space);
         }
@@ -51,51 +99,9 @@ public class KeyBindScript : MonoBehaviour
         {
             keys.Add("Cast", KeyCode.X);
         }
-
-        interact.text = keys["Interact"].ToString();
-        jump.text = keys["Jump"].ToString();
-        dash.text = keys["Dash"].ToString();
-        attack.text = keys["Attack"].ToString();
-        cast.text = keys["Cast"].ToString();
     }
-
-    private void OnGUI()
+    private void OnDestroy()
     {
-        if (currKey != null)
-        {
-            Event e = Event.current;
-            if (e.isKey)
-            {
-                UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
-                keys[currKey.name] = e.keyCode;
-                switch (currKey.name)
-                {
-                    case "Interact Button":
-                        PlayerPrefs.SetString("Interact", e.keyCode.ToString());
-                        break;
-                    case "Jump Button":
-                        PlayerPrefs.SetString("Jump", e.keyCode.ToString());
-                        Debug.Log("Ulozeny skok: " + e.keyCode.ToString());
-                        break;
-                    case "Dash Button":
-                        PlayerPrefs.SetString("Dash", e.keyCode.ToString());
-                        break;
-                    case "Attack Button":
-                        PlayerPrefs.SetString("Attack", e.keyCode.ToString());
-                        break;
-                    case "Cast Button":
-                        PlayerPrefs.SetString("Cast", e.keyCode.ToString()); 
-                        break;
-                }
-                PlayerPrefs.Save();
-                currKey.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = e.keyCode.ToString();
-                currKey = null;
-            }
-        }
-    }
-
-    public void ChangeKey(GameObject clicked)
-    {
-        currKey = clicked;
+        SaveKeys();
     }
 }

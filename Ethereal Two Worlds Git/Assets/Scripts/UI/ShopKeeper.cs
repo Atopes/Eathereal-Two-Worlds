@@ -23,14 +23,9 @@ public class ShopKeeper : MonoBehaviour
     private KeyCode interactKey;
 
     void Start(){
-        if (PlayerPrefs.HasKey("Interact"))
-        {
-            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
-        }
-        else
-        {
-            interactKey = KeyCode.E;
-        }
+        
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        
         healthBar = FindObjectOfType<HealthBar>();
         image1.sprite = imageItem1;
         image2.sprite = imageItem2;

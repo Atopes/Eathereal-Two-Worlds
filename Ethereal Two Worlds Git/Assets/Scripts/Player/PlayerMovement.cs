@@ -18,49 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
-    private KeyCode interactKey, jumpKey, dashKey, attackKey, castKey;
+    private KeyCode jumpKey, dashKey, attackKey, castKey;
     
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Interact"))
-        {
-            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
-        }
-        else
-        {
-            interactKey = KeyCode.E;
-        }
-        if (PlayerPrefs.HasKey("Jump"))
-        {
-            jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));
-        } else
-        {
-            jumpKey = KeyCode.Space;
-        }
-        if (PlayerPrefs.HasKey("Dash"))
-        {
-            dashKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash"));
-        }
-        else
-        {
-            dashKey = KeyCode.LeftShift;
-        }
-        if (PlayerPrefs.HasKey("Attack"))
-        {
-            attackKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack"));
-        }
-        else
-        {
-            attackKey = KeyCode.C;
-        }
-        if (PlayerPrefs.HasKey("Cast"))
-        {
-            castKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cast"));
-        }
-        else
-        {
-            castKey = KeyCode.X;
-        }
+        LoadKeys();
 
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
@@ -70,6 +32,14 @@ public class PlayerMovement : MonoBehaviour
         playerScale = player.transform.localScale; // Defines players starting local scale
         dialogueManager = FindObjectOfType<DialogueManager>();
         gameObject.transform.position = PlayerStatistics.PlayerRespawnPoint;
+    }
+
+    private void LoadKeys()
+    {
+        jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));
+        dashKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash"));
+        attackKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack"));
+        castKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cast"));
     }
     void Update()
     {
