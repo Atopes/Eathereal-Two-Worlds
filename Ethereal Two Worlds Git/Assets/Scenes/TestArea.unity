@@ -29032,7 +29032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f15403152159f4dbd44e83ac8ec87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxParent: {fileID: 1014699843}
 --- !u!1 &1018705937
 GameObject:
   m_ObjectHideFlags: 0
@@ -62532,6 +62531,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 215966504466046816, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046816, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.62603
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046816, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.790073
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046816, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046816, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046822, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: maximumVel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504466046822, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: movementSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 215966504466046822, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
       propertyPath: playerCollision
       value: 
@@ -62540,6 +62567,22 @@ PrefabInstance:
       propertyPath: playerStatistics
       value: 
       objectReference: {fileID: 276465237}
+    - target: {fileID: 215966504586595521, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504586595521, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.62603
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504586595521, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.4751825
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504586595527, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: movementSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 215966504586595527, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
       propertyPath: playerCollision
       value: 
@@ -62549,6 +62592,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 276465237}
     - target: {fileID: 215966504886961066, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: movementSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504886961066, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
       propertyPath: playerCollision
       value: 
       objectReference: {fileID: 276465234}
@@ -62556,6 +62603,18 @@ PrefabInstance:
       propertyPath: playerStatistics
       value: 
       objectReference: {fileID: 276465237}
+    - target: {fileID: 215966504886961068, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504886961068, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.62603
+      objectReference: {fileID: 0}
+    - target: {fileID: 215966504886961068, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.790073
+      objectReference: {fileID: 0}
     - target: {fileID: 8557240828639837120, guid: ae8b6684df28ce24da1442282c486fb2, type: 3}
       propertyPath: m_RootOrder
       value: 21
