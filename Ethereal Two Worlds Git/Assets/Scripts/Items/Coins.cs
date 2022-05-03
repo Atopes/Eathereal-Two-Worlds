@@ -16,9 +16,9 @@ public class Coins : MonoBehaviour
     }
     void FixedUpdate(){
             if (playerColision.IsTouching(coinCollision)){ //Actually checking for the collision
-            if (Random.Range(1,101) <= doubleChance){
-                FindObjectOfType<UIController>().SetCoins(moneyAmount);
-            }
+                if (Random.Range(1,101) <= doubleChance){
+                    FindObjectOfType<UIController>().SetCoins(moneyAmount);
+                }
             FindObjectOfType<UIController>().SetCoins(moneyAmount);
             Destroy(gameObject); //Destroying the object in the scene
             }

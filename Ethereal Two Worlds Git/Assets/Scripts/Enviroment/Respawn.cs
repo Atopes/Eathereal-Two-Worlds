@@ -9,17 +9,9 @@ public class Respawn : MonoBehaviour {
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
     private Vector3 RespawnPointLocation; // World position of the players respawn point
     private KeyCode interactKey;
-
     private void Start() {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
-        if (PlayerPrefs.HasKey("Interact"))
-        {
-            interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
-        }
-        else
-        {
-            interactKey = KeyCode.E;
-        }
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
     }
     private void Update() {
         if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(interactKey)) { // Checks if player is touching the respawn point
@@ -30,6 +22,9 @@ public class Respawn : MonoBehaviour {
     }
     private void UpdateRespawnPoint() {
         PlayerStatistics.PlayerRespawnPoint = RespawnPointLocation;  // Sets the players respawn point to new position
+        PlayerPrefs.SetFloat("RespawnX", RespawnPointLocation.x);
+        PlayerPrefs.SetFloat("RespawnY", RespawnPointLocation.y);
+        PlayerPrefs.Save();
     }
     public void RespawnPlayer() {
         FindObjectOfType<PlayerMovement>().ResetVelocity();

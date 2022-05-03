@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour{
     }
     // Update is called once per frame
     void Update(){
-        RaycastHit2D left = Physics2D.Linecast(eye.transform.position, eye.transform.position - ((float)1.*seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D left = Physics2D.Linecast(eye.transform.position, eye.transform.position - ((float)1.65*seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
         RaycastHit2D right = Physics2D.Linecast(eye.transform.position, eye.transform.position + ((float)1.5 * seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
         if (left.collider != null || right.collider != null)
         {
