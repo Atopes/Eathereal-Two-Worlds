@@ -64,7 +64,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("hehe");
+        SceneManager.LoadScene(PlayerPrefs.GetInt("Scene"));
     }
 
     public void Exit()
