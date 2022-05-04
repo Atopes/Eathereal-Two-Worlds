@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour{
         {
             movementSpeed = 5;
             animator.SetBool("Walking",true);
+            animator.SetBool("Running", false);
         }
         if (enemyCollision.IsTouching(playerCollision)){ //Checking for collision with player
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
@@ -44,6 +45,7 @@ public class EnemyController : MonoBehaviour{
             maximumVel = 4;
             seenPlayer = true;
             animator.SetBool("Running", true);
+            animator.SetBool("Walking", false);
             if (bite.collider != null && canAttack)
             {
                 Attack();
@@ -52,7 +54,6 @@ public class EnemyController : MonoBehaviour{
         if (hit.collider == null){
             if(maximumVel == 4){
                 maximumVel = 2;
-                animator.SetBool("Running", false);
             }
             if (seenPlayer){
                 StartCoroutine(Seek());

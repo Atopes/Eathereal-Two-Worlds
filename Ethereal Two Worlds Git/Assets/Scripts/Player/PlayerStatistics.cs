@@ -19,6 +19,7 @@ public class PlayerStatistics : MonoBehaviour
         coins = PlayerPrefs.GetInt("Coins");
         meleeDamage = PlayerPrefs.GetInt("MeleeDmg");
         PlayerPrefs.SetInt("Scene", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.Save();
     }
     public void takeDamage(int health){ // Method to deal damage to the player
         if (canTakeDamage && currentHP > 0)

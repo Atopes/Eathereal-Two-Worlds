@@ -11,6 +11,8 @@ public class EndFlagNext : MonoBehaviour
     void Update(){
         if (PlayerCollider.IsTouching(FlagCollider)){ //Looking for collision with the "flag"
             PlayerStatistics.PlayerRespawnPoint = new Vector3(nextXposition,nextYposition,1);
+            PlayerPrefs.SetFloat("RespawnX", nextXposition);
+            PlayerPrefs.SetFloat("RespawnY", nextYposition);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //Loads in next scene , cen be re-done to open some sort of menu
         }
         
