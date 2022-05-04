@@ -25,7 +25,11 @@ public class ShopKeeper : MonoBehaviour
     void Start(){
         
         interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
-        
+
+        itemBought1 = PlayerPrefs.GetInt("ItemBought1") != 0;
+        itemBought2 = PlayerPrefs.GetInt("ItemBought2") != 0;
+        itemBought3 = PlayerPrefs.GetInt("ItemBought3") != 0;
+
         healthBar = FindObjectOfType<HealthBar>();
         image1.sprite = imageItem1;
         image2.sprite = imageItem2;
@@ -66,6 +70,8 @@ public class ShopKeeper : MonoBehaviour
             PlayerStatistics.coins -= itemPrice1;
             coinsText.text = PlayerStatistics.coins.ToString();
             itemBought1 = true;
+            PlayerPrefs.SetInt("ItemBought1", 1);
+            PlayerPrefs.Save();
             PlayerStatistics.meleeDamage = 4;
             imageCross1.sprite = circle;
             imageCross1.color = new Color(1, 1, 1, 1);
@@ -78,6 +84,8 @@ public class ShopKeeper : MonoBehaviour
             PlayerStatistics.coins -= itemPrice2;
             coinsText.text = PlayerStatistics.coins.ToString();
             itemBought2 = true;
+            PlayerPrefs.SetInt("ItemBought2", 1);
+            PlayerPrefs.Save();
             PlayerStatistics.healthPoints++;
             PlayerPrefs.SetInt("MaxHealth", PlayerStatistics.healthPoints);
             PlayerPrefs.Save();
@@ -96,6 +104,8 @@ public class ShopKeeper : MonoBehaviour
             PlayerStatistics.coins -= itemPrice3;
             coinsText.text = PlayerStatistics.coins.ToString();
             itemBought3 = true;
+            PlayerPrefs.SetInt("ItemBought3", 1);
+            PlayerPrefs.Save();
             Coins.doubleChance = 10;
             imageCross3.sprite = circle;
             imageCross3.color = new Color(1, 1, 1, 1);
