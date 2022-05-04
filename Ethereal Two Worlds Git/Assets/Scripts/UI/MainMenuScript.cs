@@ -44,7 +44,6 @@ public class MainMenuScript : MonoBehaviour
         PlayerPrefs.Save();
 
         ResolutionLabel.text = width.ToString() + " x " + height.ToString(); 
-        
 
         Screen.fullScreen = isFullscreen;
         if (isFullscreen)

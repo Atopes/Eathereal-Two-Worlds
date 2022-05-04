@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
-            SceneManager.LoadScene("MainMenu");
+            kuscickopocekaj();
         }
     }
     public void RestartLevel(){
@@ -23,5 +23,11 @@ public class UIController : MonoBehaviour
     public void SetCoins(int addedAmount){
         PlayerStatistics.coins += addedAmount; // Adds coins to the player
         coinsText.text = PlayerStatistics.coins + ""; // Updates the number of coins displayed in UI
+    }
+
+    IEnumerator kuscickopocekaj()
+    {
+        yield return new WaitForSecondsRealtime((float)0.05);
+        SceneManager.LoadScene("MainMenu");
     }
 }
