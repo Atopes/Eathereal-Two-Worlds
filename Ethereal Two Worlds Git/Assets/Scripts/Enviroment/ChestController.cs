@@ -13,7 +13,7 @@ public class ChestController : MonoBehaviour
     private KeyCode interactKey;
     private void Start()
     {
-        interactKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));*/ KeyCode.E;
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
     }
     void Update(){
         if (playerCollider.IsTouching(chestCollider)){

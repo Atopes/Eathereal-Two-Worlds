@@ -3281,6 +3281,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (10)
@@ -8766,6 +8770,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (7)
@@ -9247,6 +9255,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (8)
@@ -10434,6 +10446,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (14)
@@ -14392,6 +14408,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (11)
@@ -14974,6 +14994,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (4)
@@ -28680,6 +28704,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (12)
@@ -36193,6 +36221,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (6)
@@ -39911,7 +39943,7 @@ PrefabInstance:
     - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: playerStatistics
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (3)
@@ -45212,6 +45244,7 @@ Transform:
   - {fileID: 1875880924}
   - {fileID: 1072065670}
   - {fileID: 406349304}
+  - {fileID: 1736623847}
   m_Father: {fileID: 1011337789}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48681,6 +48714,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (5)
@@ -51529,12 +51566,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736623845}
   m_LocalRotation: {x: -0, y: -0, z: 0.7077213, w: 0.70649177}
-  m_LocalPosition: {x: 227.19, y: -0.74, z: 0}
+  m_LocalPosition: {x: 257.07343, y: -0.4674957, z: 0.28314894}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_Father: {fileID: 1533792902}
+  m_RootOrder: 110
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.1}
 --- !u!1 &1744755441
 GameObject:
@@ -53984,6 +54021,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (9)
@@ -56382,6 +56423,10 @@ PrefabInstance:
       propertyPath: playerColision
       value: 
       objectReference: {fileID: 276465234}
+    - target: {fileID: -2455917146987065327, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
+      propertyPath: playerStatistics
+      value: 
+      objectReference: {fileID: 276465237}
     - target: {fileID: 180392727604248782, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
       propertyPath: m_Name
       value: Coin (13)
