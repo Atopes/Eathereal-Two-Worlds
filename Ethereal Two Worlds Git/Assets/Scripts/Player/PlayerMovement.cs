@@ -250,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
         //Sets all values back to normal after 1 second
         DashParticle.Stop();
         ReturnValuesAfterDash();
-        yield return new WaitForSecondsRealtime((float)1); //Puts the players dash on 1 s cooldown
+        yield return new WaitForSecondsRealtime((float)0.5); //Puts the players dash on 1 s cooldown
         isDashing = false;
     }
     IEnumerator Shoot()

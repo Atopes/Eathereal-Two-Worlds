@@ -13,7 +13,7 @@ public class UIController : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape) && PlayerMovement.canMove != false){
             StartCoroutine(kuscickopocekaj());
         }
     }
