@@ -1352,12 +1352,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     sentences:
-    - Looking for a hienous criminal that stole my sweet roll.Reward 5 gp ! Justice
-      will be served sweet !
-    - Dangerous wolves spotted in the area.Please be cautious !
+    - Looking for a hienous criminal that stole my sweet roll. Reward 5 gp! Justice
+      will be srved sweet !
+    - Dangerous wolves spotted in the area. Please be cautious!
     - The PrimoSmith guild is looking for early investors! You can find us in the
       city of Lunaris.
-    - The village of Carran got taken by the demon army , do not get near this village.
+    - The village of Carran got taken by the demon army, do not get near this village.
     name: Bilboard
   triggerArea: {fileID: 47930413}
   prompt: {fileID: 1391904393}
@@ -2329,7 +2329,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6648887, y: 1}
+    m_SensorSize: {x: 2.4257426, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3369,7 +3369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1594752636}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &106702417
 SpriteRenderer:
@@ -54817,7 +54817,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 884996148}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1910420672
 SpriteRenderer:
@@ -56496,8 +56496,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300106, guid: b08e570699f1c8a4f9cc388204aef3bc, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -56515,8 +56515,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972500670}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.765, y: -4.46, z: 0}
-  m_LocalScale: {x: 0.14611048, y: 1.7368698, z: 1}
+  m_LocalPosition: {x: -42.832, y: -3.17, z: 0}
+  m_LocalScale: {x: 0.17458741, y: 1.6687845, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 78077868}
@@ -56535,18 +56535,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.046077788, y: -0.7411848}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 1}
+    oldSize: {x: 1.13, y: 1.37}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9078444, y: 1.083908}
   m_EdgeRadius: 0
 --- !u!114 &1972500674
 MonoBehaviour:
@@ -62394,11 +62394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00039591934
+      value: 0.0008120681
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7004759
+      value: 0.7004828
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
