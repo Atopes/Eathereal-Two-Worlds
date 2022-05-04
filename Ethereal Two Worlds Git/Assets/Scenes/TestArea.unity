@@ -2329,7 +2329,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.4257426, y: 1}
+    m_SensorSize: {x: 1.6648887, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5530,6 +5530,10 @@ PrefabInstance:
     - target: {fileID: 299008622165011597, guid: b18dcd3ee86986b469e9cfc64055704c, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.65999985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790980893991760848, guid: b18dcd3ee86986b469e9cfc64055704c, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1977519015451789516, guid: b18dcd3ee86986b469e9cfc64055704c, type: 3}
       propertyPath: m_SortingOrder
@@ -52356,7 +52360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819774754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 449.82, y: -4, z: 0}
+  m_LocalPosition: {x: 437.79, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 4.0679994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52377,7 +52381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlagCollider: {fileID: 1819774755}
   PlayerCollider: {fileID: 276465234}
-  nextXposition: -70
+  nextXposition: -60
   nextYposition: -3
 --- !u!4 &1820875227 stripped
 Transform:
@@ -62394,11 +62398,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0008120681
+      value: 0.00039591934
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7004828
+      value: 0.7004759
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
