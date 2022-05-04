@@ -28,6 +28,7 @@ public class HomeCutScene : MonoBehaviour
                 playableDirector.Play();
                 wasCutscenePlayed = true;
                 PlayerMovement.canMove = false;
+                
                 StartCoroutine(waitForCutscene());
             }
         }

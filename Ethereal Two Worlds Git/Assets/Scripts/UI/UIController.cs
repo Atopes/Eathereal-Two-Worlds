@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
-            SceneManager.LoadScene("MainMenu");
+            Application.Quit();
         }
     }
     public void RestartLevel(){
@@ -22,6 +22,8 @@ public class UIController : MonoBehaviour
     }
     public void SetCoins(int addedAmount){
         PlayerStatistics.coins += addedAmount; // Adds coins to the player
+        PlayerPrefs.SetInt("Coins", PlayerStatistics.coins);
+        PlayerPrefs.Save();
         coinsText.text = PlayerStatistics.coins + ""; // Updates the number of coins displayed in UI
     }
 }
