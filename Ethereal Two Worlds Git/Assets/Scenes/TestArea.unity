@@ -1352,12 +1352,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     sentences:
-    - Looking for a hienous criminal that stole my sweet roll.Reward 5 gp ! Justice
-      will be served sweet !
-    - Dangerous wolves spotted in the area.Please be cautious !
+    - Looking for a hienous criminal that stole my sweet roll. Reward 5 gp! Justice
+      will be srved sweet !
+    - Dangerous wolves spotted in the area. Please be cautious!
     - The PrimoSmith guild is looking for early investors! You can find us in the
       city of Lunaris.
-    - The village of Carran got taken by the demon army , do not get near this village.
+    - The village of Carran got taken by the demon army, do not get near this village.
     name: Bilboard
   triggerArea: {fileID: 47930413}
   prompt: {fileID: 1391904393}
@@ -2329,7 +2329,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2619262, y: 1}
+    m_SensorSize: {x: 2.4257426, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3369,7 +3369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1594752636}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &106702417
 SpriteRenderer:
@@ -54817,7 +54817,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 884996148}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1910420672
 SpriteRenderer:
@@ -62394,7 +62394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00069936115
+      value: 0.0008120681
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.y
