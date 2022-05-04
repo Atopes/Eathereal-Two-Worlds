@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.8990898, b: 0, a: 1}
   m_FlipX: 0
@@ -114,8 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ff65d878fdba145861befcc2e57134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColision: {fileID: 5377627306360508744, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   coinCollision: {fileID: 180392727604248777}
   playerStatistics: {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
-  uiController: {fileID: 0}
   moneyAmount: 1
