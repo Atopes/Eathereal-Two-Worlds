@@ -22,9 +22,6 @@ public class Respawn : MonoBehaviour {
     }
     private void UpdateRespawnPoint() {
         PlayerStatistics.PlayerRespawnPoint = RespawnPointLocation;  // Sets the players respawn point to new position
-        PlayerPrefs.SetFloat("RespawnX", RespawnPointLocation.x);
-        PlayerPrefs.SetFloat("RespawnY", RespawnPointLocation.y);
-        PlayerPrefs.Save();
     }
     public void RespawnPlayer() {
         FindObjectOfType<PlayerMovement>().ResetVelocity();
