@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
-            kuscickopocekaj();
+            StartCoroutine(kuscickopocekaj());
         }
     }
     public void RestartLevel(){

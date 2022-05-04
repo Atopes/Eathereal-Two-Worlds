@@ -13,6 +13,8 @@ public class EndFlagNext : MonoBehaviour
             PlayerStatistics.PlayerRespawnPoint = new Vector3(nextXposition,nextYposition,1);
             PlayerPrefs.SetFloat("RespawnX", nextXposition);
             PlayerPrefs.SetFloat("RespawnY", nextYposition);
+            PlayerPrefs.SetInt("Coins", PlayerStatistics.coins);
+            PlayerPrefs.SetInt("CurrHP", PlayerStatistics.currentHP);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //Loads in next scene , cen be re-done to open some sort of menu
         }
         

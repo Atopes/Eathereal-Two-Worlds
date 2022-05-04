@@ -11,8 +11,8 @@ public class EnemyController : MonoBehaviour{
     public float movementSpeed = 0,maximumVel = 2f; // Movement speed of the enemy
     Vector3 enemyScale; // Vector that changes the way the enemy is looking - used for changing local scale
     Vector2 movement; // Vector used to define which way is the enemy moving
-    private Vector3 seekDistance = new Vector3(8f, 0); //line of sight
-    private Vector3 biteDistance = new Vector3(1f, 0); //line of sight
+    private Vector3 seekDistance = new Vector3(12f, 0); //line of sight
+    private Vector3 biteDistance = new Vector3(1.5f, 0); //line of sight
     public GameObject eye;
     private bool seenPlayer=false, canAttack = true,canDoDamage=true;
     public Animator animator;
@@ -28,8 +28,8 @@ public class EnemyController : MonoBehaviour{
     }
     // Update is called once per frame
     void Update(){
-        RaycastHit2D left = Physics2D.Linecast(eye.transform.position, eye.transform.position - ((float)1.65*seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
-        RaycastHit2D right = Physics2D.Linecast(eye.transform.position, eye.transform.position + ((float)1.5 * seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D left = Physics2D.Linecast(eye.transform.position, eye.transform.position - ((float)2*seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D right = Physics2D.Linecast(eye.transform.position, eye.transform.position + ((float)2* seekDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
         if (left.collider != null || right.collider != null)
         {
             movementSpeed = 5;
@@ -43,6 +43,7 @@ public class EnemyController : MonoBehaviour{
         RaycastHit2D bite = Physics2D.Linecast(eye.transform.position, eye.transform.position + (biteDistance * movement.x), 1 << LayerMask.NameToLayer("Player"));
         if (hit.collider != null){
             maximumVel = 4;
+            movementSpeed = 8;
             seenPlayer = true;
             animator.SetBool("Running", true);
             animator.SetBool("Walking", false);
@@ -54,6 +55,7 @@ public class EnemyController : MonoBehaviour{
         if (hit.collider == null){
             if(maximumVel == 4){
                 maximumVel = 2;
+                movementSpeed = 5;
             }
             if (seenPlayer){
                 StartCoroutine(Seek());
