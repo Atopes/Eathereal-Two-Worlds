@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 8376177808042809530}
   - component: {fileID: 8376177808042809534}
   - component: {fileID: 8604332765388301844}
+  - component: {fileID: 7275123669013086735}
   m_Layer: 9
   m_Name: Enemy wolf
   m_TagString: Untagged
@@ -218,18 +219,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.022285, y: -0.028210107}
+  m_Offset: {x: 0.23608854, y: -0.006519884}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78, y: 0.38}
+    oldSize: {x: 0.75, y: 0.37}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.48306713, y: 0.29841417}
+  m_Size: {x: 0.22278458, y: 0.3417946}
   m_EdgeRadius: 0
 --- !u!50 &8376177808042809534
 Rigidbody2D:
@@ -272,6 +273,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &7275123669013086735
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376177808042809529}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.012394428, y: -0.030986026}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.75, y: 0.37}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6942252, y: 0.30802795}
+  m_EdgeRadius: 0
 --- !u!1 &8376177808107257569
 GameObject:
   m_ObjectHideFlags: 0

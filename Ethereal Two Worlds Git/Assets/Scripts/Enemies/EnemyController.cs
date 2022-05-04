@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour{
     private Vector3 seekDistance = new Vector3(8f, 0); //line of sight
     private Vector3 biteDistance = new Vector3(1f, 0); //line of sight
     public GameObject eye;
-    private bool seenPlayer=false, canAttack = true;
+    private bool seenPlayer=false, canAttack = true,canDoDamage=true;
     public Animator animator;
     public GameObject coinPrefab;
     void Start() {
@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour{
             animator.SetBool("Walking",true);
             animator.SetBool("Running", false);
         }
-        if (enemyCollision.IsTouching(playerCollision)){ //Checking for collision with player
+        if (enemyCollision.IsTouching(playerCollision) && canDoDamage){ //Checking for collision with player
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
         }
         RaycastHit2D hit = Physics2D.Linecast(eye.transform.position, eye.transform.position + (seekDistance*movement.x), 1 << LayerMask.NameToLayer("Player"));
@@ -118,6 +118,7 @@ public class EnemyController : MonoBehaviour{
     {
         maximumVel = 0;
         canAttack = false;
+        canDoDamage = false;
         yield return new WaitForSecondsRealtime((float)0.3);
         Destroy(gameObject); // Destroys enemy when out of health
     }

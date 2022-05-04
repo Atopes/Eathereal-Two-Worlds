@@ -64,7 +64,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void LoadGame()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("Scene"));
+        Debug.Log("hehe");
     }
 
     public void Exit()
@@ -124,6 +124,7 @@ public class MainMenuScript : MonoBehaviour
         PlayerPrefs.SetString("Cast", keys[4]);
 
         PlayerPrefs.SetInt("MaxHealth", 3);
+        PlayerPrefs.SetInt("CurrHP", 3);
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("MeleeDmg", 3);
         
