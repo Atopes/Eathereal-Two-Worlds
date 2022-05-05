@@ -7,11 +7,13 @@ public class Respawn : MonoBehaviour {
     public GameObject player; // Reference to the player object
     public HealthBar healthBar; // Reference to the healthBar script
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
+    private PlayerStatistics playerStatistics;
     private Vector3 RespawnPointLocation; // World position of the players respawn point
     private KeyCode interactKey;
     private void Start() {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
         interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        playerStatistics = FindObjectOfType<PlayerStatistics>(); 
     }
     private void Update() {
         if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(interactKey)) { // Checks if player is touching the respawn point
@@ -36,7 +38,8 @@ public class Respawn : MonoBehaviour {
         healthBar.slider.value = PlayerStatistics.currentHP;
     }
     IEnumerator healBugFix(){
-        yield return new WaitForSecondsRealtime((float)0.35); // Waits 0.3 s lol
+        yield return new WaitForSecondsRealtime((float)0.25); // Waits 0.3 s lol
+        playerStatistics.healPlayer(0);
         SetHpToMax();
     }
 }
