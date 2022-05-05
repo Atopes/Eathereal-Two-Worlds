@@ -40,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void LoadKeys()
     {
-        jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump")); KeyCode.Space;
-        dashKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash")); KeyCode.LeftShift;
-        attackKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack")); KeyCode.C;
-        castKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cast"));
+        jumpKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));*/ KeyCode.Space;
+        dashKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash"));*/ KeyCode.LeftShift;
+        attackKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack"));*/ KeyCode.C;
+        /*castKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Cast"));*/
     }
     void Update()
     {

@@ -11,7 +11,7 @@ public class Respawn : MonoBehaviour {
     private KeyCode interactKey;
     private void Start() {
         RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
-        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        interactKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));*/ KeyCode.E;
     }
     private void Update() {
         if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(interactKey)) { // Checks if player is touching the respawn point
