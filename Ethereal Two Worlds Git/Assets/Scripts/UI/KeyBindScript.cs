@@ -1,14 +1,20 @@
 using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 public class KeyBindScript : MonoBehaviour
 {
-    public Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
+    public System.Collections.Generic.Dictionary<string, KeyCode> keys = new System.Collections.Generic.Dictionary<string, KeyCode>();
 
     public TextMeshProUGUI interact, jump, dash, attack, cast;
 
     private GameObject currKey;
+
+    [SerializeField]
+    private GameObject keyDuplicatedPanel;
+    [SerializeField]
+    private Button interactButton, jumpButton, dashButton, attackButton, castButton;
 
     private void Start()
     {
@@ -24,9 +30,29 @@ public class KeyBindScript : MonoBehaviour
 
     private void OnGUI()
     {
+        Event x = Event.current;
+
+        if (x.mousePosition.x >= interactButton.transform.position.x - interactButton.GetComponent<RectTransform>().rect.width &&
+            x.mousePosition.x <= interactButton.transform.position.x + interactButton.GetComponent<RectTransform>().rect.width &&
+            x.mousePosition.y >= interactButton.transform.position.y - interactButton.GetComponent<RectTransform>().rect.height &&
+            x.mousePosition.y <= interactButton.transform.position.y + interactButton.GetComponent<RectTransform>().rect.height)
+
+        {
+            KeyDuplicated();
+        }
+
         if (currKey != null)
         {
             Event e = Event.current;
+
+            if (e.mousePosition.x > interactButton.transform.position.x - interactButton.GetComponent<RectTransform>().rect.width / 2 &&
+                e.mousePosition.x < interactButton.transform.position.x + interactButton.GetComponent<RectTransform>().rect.width / 2 &&
+                e.mousePosition.x > interactButton.transform.position.y - interactButton.GetComponent<RectTransform>().rect.height / 2 &&
+                e.mousePosition.x < interactButton.transform.position.y + interactButton.GetComponent<RectTransform>().rect.height / 2)
+                
+            {
+                Debug.Log("Pojeb sa");
+            }
             if (e.isKey)
             {
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
@@ -47,6 +73,7 @@ public class KeyBindScript : MonoBehaviour
     private void SaveChanged(string name, KeyCode key)
     {
         PlayerPrefs.SetString(name.Replace(" Button", ""), key.ToString());
+        PlayerPrefs.Save();
     }
 
     private void SaveKeys()
@@ -102,4 +129,17 @@ public class KeyBindScript : MonoBehaviour
             keys.Add("Cast", KeyCode.X);
         }
     }
+
+    private void KeyDuplicated()
+    {
+        StartCoroutine(KeyDuplicatedTimer());
+    }
+
+    IEnumerator KeyDuplicatedTimer()
+    {
+        keyDuplicatedPanel.SetActive(true);
+        yield return new WaitForSecondsRealtime((float)0.75);
+        keyDuplicatedPanel.SetActive(false);
+    }
+
 }
