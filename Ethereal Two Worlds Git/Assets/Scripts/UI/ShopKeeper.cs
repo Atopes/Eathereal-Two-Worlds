@@ -23,8 +23,8 @@ public class ShopKeeper : MonoBehaviour
     private KeyCode interactKey;
 
     void Start(){
-        
-        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+
+        interactKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));*/ KeyCode.E;
 
         itemBought1 = PlayerPrefs.GetInt("ItemBought1") != 0;
         itemBought2 = PlayerPrefs.GetInt("ItemBought2") != 0;
