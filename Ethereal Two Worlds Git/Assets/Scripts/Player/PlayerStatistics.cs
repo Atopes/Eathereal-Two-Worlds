@@ -12,7 +12,7 @@ public class PlayerStatistics : MonoBehaviour
     public bool canTakeDamage = true; // Defines if player can take damage - is invincible
     public Animator animator;
     private void Start(){
-        PlayerRespawnPoint = new Vector3(/*PlayerPrefs.GetFloat("RespawnX")*/227f, /*PlayerPrefs.GetFloat("RespawnY")*/-3.27f, 1);
+        PlayerRespawnPoint = new Vector3(PlayerPrefs.GetFloat("RespawnX"), PlayerPrefs.GetFloat("RespawnY"), 1);
         healthPoints = PlayerPrefs.GetInt("MaxHealth");
         currentHP = PlayerPrefs.GetInt("CurrHP");
         coins = PlayerPrefs.GetInt("Coins");
