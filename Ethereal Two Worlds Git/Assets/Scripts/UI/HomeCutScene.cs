@@ -15,7 +15,7 @@ public class HomeCutScene : MonoBehaviour
 
     private void Start()
     {
-        interactKey = (KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));    
+        interactKey = /*(KeyCode) System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));*/ KeyCode.E;    
     }
 
     void Update(){
