@@ -61,8 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, 0);
         }
-        if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects))
-        { // Checking if the player ground collider is touching anything on the platforms layer
+        if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { // Checking if the player ground collider is touching anything on the platforms layer
             isGrounded = true;
             animator.SetBool("Grounded", true);
         }
