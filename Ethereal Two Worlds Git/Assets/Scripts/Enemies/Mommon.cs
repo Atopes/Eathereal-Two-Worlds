@@ -11,7 +11,7 @@ public class Mommon : MonoBehaviour{
     public Rigidbody2D enemyRB;
     public Slider healthBar;
     public int movementSpeed =5,maximumVel =4;
-    public GameObject eye,ringPrefab,ringTip;
+    public GameObject eye,ringPrefab,ringTip,fireBallPrefab;
     public GameObject torch1, torch2, torch3, torch4;
     public Animator animator;
     public Button resetButton;
@@ -19,7 +19,7 @@ public class Mommon : MonoBehaviour{
     private int layerWalls; // Reference to the different layers
     public static bool isAlive = true,otherWorld = false;
     public static int torchesDown = 0;
-    private bool started = false, canMove = true, isMoveTimerRunning = false, seesPlayer = false,canTakeDamage=true;
+    private bool started = false, canMove = true, isMoveTimerRunning = false, seesPlayer = false,canTakeDamage=true,phase2 =false;
     private Vector3 seekDistance = new Vector3(20f, 0),enemyScale;
     private RaycastHit2D hit;
     private Vector2 movement;
@@ -53,6 +53,10 @@ public class Mommon : MonoBehaviour{
             torch2.SetActive(false);
             torch3.SetActive(false);
             torch4.SetActive(false);
+            torchesDown = 0;
+            phase2 = false;
+            movementSpeed = 5;
+            maximumVel = 4;
         }
         ///////////////////////MOVEMENT//////////////////////////
         if (started && canMove) {
@@ -112,6 +116,12 @@ public class Mommon : MonoBehaviour{
         }
         yield return new WaitForSecondsRealtime(5);
         canMove = !canMove;
+        if (!seesPlayer || phase2){
+            Instantiate(fireBallPrefab, new Vector3(gameObject.transform.position.x -3, gameObject.transform.position.y + 5, 1), Quaternion.identity);
+        }
+        if (phase2){
+            Instantiate(fireBallPrefab, new Vector3(gameObject.transform.position.x + 3, gameObject.transform.position.y + 5, 1), Quaternion.identity);
+        }
         isMoveTimerRunning = false;
     }
     IEnumerator ForgetTimer(){
@@ -164,6 +174,11 @@ public class Mommon : MonoBehaviour{
             otherWorld = true;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.4f);
             torch2.SetActive(true);
+        }
+        if(healthPoints <= 25){
+            phase2 = true;
+            movementSpeed = 8;
+            maximumVel = 7;
         }
         if (healthPoints <= 20 && torchesDown == 2)
         {
