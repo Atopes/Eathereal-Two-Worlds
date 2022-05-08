@@ -106,7 +106,7 @@ public class ShopKeeper : MonoBehaviour
             itemBought3 = true;
             PlayerPrefs.SetInt("ItemBought3", 1);
             PlayerPrefs.Save();
-            Coins.doubleChance = 10;
+            PlayerMovement.canShoot = true;
             imageCross3.sprite = circle;
             imageCross3.color = new Color(1, 1, 1, 1);
         }

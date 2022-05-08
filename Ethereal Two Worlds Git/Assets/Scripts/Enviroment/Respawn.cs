@@ -9,9 +9,11 @@ public class Respawn : MonoBehaviour {
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
     private PlayerStatistics playerStatistics;
     private Vector3 RespawnPointLocation; // World position of the players respawn point
+    private Vector3 offSet;
     private KeyCode interactKey;
     private void Start() {
-        RespawnPointLocation = gameObject.transform.position; // Defines the location of the Respawn point
+        offSet = new Vector3(0, 1, 0);
+        RespawnPointLocation = gameObject.transform.position + offSet; // Defines the location of the Respawn point
         interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
         playerStatistics = FindObjectOfType<PlayerStatistics>(); 
     }

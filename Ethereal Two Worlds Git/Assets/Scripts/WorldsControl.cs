@@ -7,14 +7,15 @@ public class WorldsControl : MonoBehaviour
     private bool isRedUp = true; // Checks which of the 2 wall types are up
     List<GameObject> RedObjects,BlueObjects; //List of all the coins in the scene
     private int blueCount, redCount; // Counter for the blue and red objects
-    private Color blueTransparent,blue,redTransparent,red; // Setting up the correct colors
+    private Color blueTransparent,classic,redTransparent; // Setting up the correct colors
     public static bool canSwitch = false;
+    private KeyCode interactKey;
     private void Start(){
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
         //Defining the colors in RGBA spectre
         blueTransparent = new Color(0.1f, 0.1f, 0.4f, 0.2f);
-        blue = new Color(0.1f, 0.1f, 0.4f, 1f);
         redTransparent = new Color(0.5f, 0.1f, 0.1f, 0.2f);
-        red = new Color(0.5f, 0.1f, 0.1f, 1f);
+        classic = new Color(1f, 1f, 1f, 1f);
         //Defining the Lists that hold the game objects
         RedObjects = new List<GameObject>();
         BlueObjects = new List<GameObject>();
@@ -31,24 +32,24 @@ public class WorldsControl : MonoBehaviour
         }
     }
     void Update(){
-        if (Input.GetKeyDown(KeyCode.E) && isRedUp && canSwitch){ //Checking for E input and if red objects are up 
+        if (Input.GetKeyDown(interactKey) && isRedUp && canSwitch){ //Checking for E input and if red objects are up 
             for(int i = 0; i < blueCount; i++) {
                 BlueObjects[i].GetComponent<BoxCollider2D>().enabled=true; //Enables collision with blue walls colliders
-                BlueObjects[i].GetComponent<SpriteRenderer>().color = blue; //Sets blue colors transparency to full
+                BlueObjects[i].GetComponent<SpriteRenderer>().color = classic; //Sets blue colors transparency to full
             }
             for (int i = 0; i < redCount; i++){
                 RedObjects[i].GetComponent<BoxCollider2D>().enabled = false; // Disables collison with red object colliders
                 RedObjects[i].GetComponent<SpriteRenderer>().color = redTransparent; // Sets red colors transparency to 10%
             }
             isRedUp = false;
-        }else if (Input.GetKeyDown(KeyCode.E) && !isRedUp && canSwitch){ //Checking for E input and if red objects are down
+        }else if (Input.GetKeyDown(interactKey) && !isRedUp && canSwitch){ //Checking for E input and if red objects are down
             for (int i = 0; i < blueCount; i++){
                 BlueObjects[i].GetComponent<BoxCollider2D>().enabled =false; // Disables collison with blue object colliders
                 BlueObjects[i].GetComponent<SpriteRenderer>().color = blueTransparent; // Sets blue colors transparency to 10 %
             }
             for (int i = 0; i < redCount; i++){
                 RedObjects[i].GetComponent<BoxCollider2D>().enabled=true; // Enables collision with red walls colliders
-                RedObjects[i].GetComponent<SpriteRenderer>().color = red; // Sets red colors transparency to full
+                RedObjects[i].GetComponent<SpriteRenderer>().color = classic; // Sets red colors transparency to full
             }
             isRedUp = true;
         }
