@@ -1353,7 +1353,7 @@ MonoBehaviour:
   dialogue:
     sentences:
     - Looking for a hienous criminal that stole my sweet roll. Reward 5 gp! Justice
-      will be srved sweet !
+      will be served sweet !
     - Dangerous wolves spotted in the area. Please be cautious!
     - The PrimoSmith guild is looking for early investors! You can find us in the
       city of Lunaris.
@@ -2329,7 +2329,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9921976, y: 1}
+    m_SensorSize: {x: 2.1819077, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -42478,37 +42478,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25dc187ceb7f7734e9b5606c662efd52, type: 3}
---- !u!1 &1359007017
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1359007018}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1359007018
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359007017}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 440, y: -4, z: -1.53447}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1359163236
 GameObject:
   m_ObjectHideFlags: 0
@@ -61860,19 +61829,18 @@ MonoBehaviour:
   imageCross3: {fileID: 1627253621}
   imageItem1: {fileID: 21300000, guid: 998d4c3dd669d604fa4568bfc9976f97, type: 3}
   imageItem2: {fileID: 21300000, guid: 8d8de45b96497c34998c8cbdca4bd3ae, type: 3}
-  imageItem3: {fileID: 21300000, guid: bb311d7e454f3a04390c362162e3ae64, type: 3}
+  imageItem3: {fileID: 21300000, guid: 8d7ee271842913e4392480b05ca3b0e7, type: 3}
   circle: {fileID: 21300000, guid: 55a20e4799c5d25489bfb02162c5e052, type: 3}
   itemName1: Claymore
   itemName2: Periapt of health
-  itemName3: Lucky stone
+  itemName3: Necklace of Fireballs
   itemDescription1: A trusty sword that will never give you up,let you down,run around
     or desert you.(4 dmg)
   itemDescription2: Makes the wearer's skin extra thicc.(+1 hp)
-  itemDescription3: Owner of this stone is said to find money more easily.(+10% chance
-    for double gold)
+  itemDescription3: Don't ask how big the room is, just do it.(press x)
   itemPrice1: 12
   itemPrice2: 14
-  itemPrice3: 10
+  itemPrice3: 16
 --- !u!1 &1972939037
 GameObject:
   m_ObjectHideFlags: 0
@@ -68913,11 +68881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0003005519
+      value: 0.00027743253
       objectReference: {fileID: 0}
     - target: {fileID: 5377627306535694234, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8745449
+      value: 1.8745518
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
