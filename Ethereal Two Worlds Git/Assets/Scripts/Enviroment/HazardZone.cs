@@ -8,6 +8,7 @@ public class HazardZone : MonoBehaviour
     public PlayerStatistics playerStatistics; //Reference to the playerStatistics script
     private bool isIn = false;
     public bool hasKnockBack = true;
+    public int damage = 1;
     void Update(){
         if (playerCollision.IsTouching(zoneCollision)) { //Checking for collision 
             if (!isIn) {
@@ -26,7 +27,7 @@ public class HazardZone : MonoBehaviour
     }
     IEnumerator DamageOverTIme() {//Damage over time Courutine , while in hazard zone deals 1 dmg each second
         while (isIn) {
-            playerStatistics.takeDamage(1);
+            playerStatistics.takeDamage(damage);
             yield return new WaitForSeconds(1f);
         }
     }
