@@ -14,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour
     private KeyCode interactKey;
     private void Start(){
         playerMovement = FindObjectOfType<PlayerMovement>(); // Defines playerMovement script
-        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact")); //Loads interactKey from PlayerPrefs
     }
     public void Update(){
         if (playerMovement.playerColision.IsTouching(triggerArea)){

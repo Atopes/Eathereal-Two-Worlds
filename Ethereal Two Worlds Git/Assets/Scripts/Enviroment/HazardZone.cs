@@ -9,15 +9,15 @@ public class HazardZone : MonoBehaviour
     private bool isIn = false;
     public bool hasKnockBack = true;
     public int damage = 1;
-    private AudioSource hitSound;
+    private AudioSource hitSound; //Reference to the sound
     private void Start()
     {
-        hitSound = GameObject.FindGameObjectWithTag("HitSound").GetComponent<AudioSource>();
+        hitSound = GameObject.FindGameObjectWithTag("HitSound").GetComponent<AudioSource>(); // Find the sound
     }
     void Update(){
         if (playerCollision.IsTouching(zoneCollision)) { //Checking for collision 
             if (!isIn) {
-                hitSound.Play();
+                hitSound.Play(); // Plays the sound
                 isIn = true; // Setting player state in the hazard zone
                 if (hasKnockBack) {
                     FindObjectOfType<PlayerMovement>().KnockBack(gameObject.transform.position);

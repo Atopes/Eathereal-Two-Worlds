@@ -9,13 +9,13 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider; //The slider object itself
     public TextMeshProUGUI healthText; //Text displayed in the health bar
-    public Respawn respawn;
-    private PlayerMovement playerMovement;
-    private PlayerStatistics playerStatistics;
+    public Respawn respawn; // Reference to the respawn script
+    private PlayerMovement playerMovement; // Reference to the playerMovement script
+    private PlayerStatistics playerStatistics; // Reference to the playerStatistics script
     private void Start(){
-        playerMovement = FindObjectOfType<PlayerMovement>();
-        playerStatistics = FindObjectOfType<PlayerStatistics>();
-        slider.value = PlayerStatistics.currentHP;
+        playerMovement = FindObjectOfType<PlayerMovement>(); //Finds script
+        playerStatistics = FindObjectOfType<PlayerStatistics>();//Finds script
+        slider.value = PlayerStatistics.currentHP; //Changes value of health bar
         setMaxHealth();
         setMaxHealthText();
     }
@@ -30,7 +30,7 @@ public class HealthBar : MonoBehaviour
         if (PlayerStatistics.currentHP <= 0){ // Do something if hp is <= then 0
             PlayerStatistics.currentHP = 0;
             playerStatistics.canTakeDamage = false;
-            StartCoroutine(respawnTimer());
+            StartCoroutine(respawnTimer()); //Wait to respawn player
         }
         healthText.text =PlayerStatistics.currentHP+"/"+ PlayerStatistics.healthPoints; //Setting the text displayed in the hp bar
     }
@@ -38,10 +38,10 @@ public class HealthBar : MonoBehaviour
     {
         playerMovement.FreezePlayer();
         playerMovement.ResetVelocity();
-        PlayerMovement.canMove = false;
+        PlayerMovement.canMove = false; // Forbids movement
         yield return new WaitForSecondsRealtime((float)0.9); // Waits 0.3 s lol
-        respawn.RespawnPlayer();
-        playerMovement.UnFreezePlayer();
+        respawn.RespawnPlayer(); // Respawns player
+        playerMovement.UnFreezePlayer(); // Allows movement
         playerStatistics.canTakeDamage = true;
     }
 }

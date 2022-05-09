@@ -7,15 +7,15 @@ public class Respawn : MonoBehaviour {
     public GameObject player; // Reference to the player object
     public HealthBar healthBar; // Reference to the healthBar script
     public BoxCollider2D respawnPointCollider, PlayerCollider; // Essential colliders
-    private PlayerStatistics playerStatistics;
+    private PlayerStatistics playerStatistics; // Reference to the playerStatistics script
     private Vector3 RespawnPointLocation; // World position of the players respawn point
-    private Vector3 offSet;
-    private KeyCode interactKey;
+    private Vector3 offSet; 
+    private KeyCode interactKey; //Reference to the interact key from KeyBinds
     private void Start() {
         offSet = new Vector3(0, 1, 0);
         RespawnPointLocation = gameObject.transform.position + offSet; // Defines the location of the Respawn point
-        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
-        playerStatistics = FindObjectOfType<PlayerStatistics>(); 
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact")); // Loads the correct key
+        playerStatistics = FindObjectOfType<PlayerStatistics>(); //Finds the script
     }
     private void Update() {
         if (respawnPointCollider.IsTouching(PlayerCollider) && Input.GetKeyDown(interactKey)) { // Checks if player is touching the respawn point
@@ -30,6 +30,7 @@ public class Respawn : MonoBehaviour {
     public void RespawnPlayer() {
         FindObjectOfType<PlayerMovement>().ResetVelocity();
         player.transform.position = PlayerStatistics.PlayerRespawnPoint; // Changes players current location
+        //Saves player respawn location
         PlayerPrefs.SetFloat("RespawnX", player.transform.position.x);
         PlayerPrefs.SetFloat("RespawnY", player.transform.position.y);
         PlayerPrefs.Save();

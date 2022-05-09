@@ -13,13 +13,14 @@ public class ChestController : MonoBehaviour
     private KeyCode interactKey;
     private void Start()
     {
-        interactKey = /*(KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));*/ KeyCode.E;
+        interactKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact"));
     }
     void Update(){
         if (playerCollider.IsTouching(chestCollider)){
             if (Input.GetKeyDown(interactKey)) {
                 if (closed) {
                     if (!isUsed) {
+                        //Spawns the item
                         Instantiate(spawnItemPrefab, new Vector3(gameObject.transform.position.x + offset.x,gameObject.transform.position.y + offset.y,1), Quaternion.identity);
                         isUsed = true;
                     }

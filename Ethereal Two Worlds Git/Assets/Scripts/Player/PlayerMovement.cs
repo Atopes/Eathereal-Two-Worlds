@@ -2,24 +2,24 @@ using System.Collections;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
-    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f, coyoteTimeCounter, knockbackForce = 2f;
+    public float playerMovementSpeed = 2f, JumpForce = 2f, coyoteTime = 0.2f, coyoteTimeCounter, knockbackForce = 2f; //Stats
     public Rigidbody2D PlayerRigidBody; // Player's rigid body
     Vector2 movement; // Variable for declaring movement on X & Y axis
     public BoxCollider2D playerColision; // Player's physicall collider
     public BoxCollider2D groundCheck; // Collider for checking if player is touching ground / platforms
-    private DialogueManager dialogueManager;
+    private DialogueManager dialogueManager; //Reference to the dialogueManager script
     public GameObject player; // Reference for player object
     public GameObject bulletPrefab; // Reference to the bullet prefab
     public ParticleSystem DashParticle; // Reference to the dash particle
     private bool isDashing = false, isShooting = false, isGrounded = true, isAttacking = false, isDashFall = false;
     public static bool isFacingRight = true, canDoubleJump = false, canWallJump = false, canShoot = false,canMove=true;
-    private int extrajumps = 1, platformsLayer, wallsLayer, layerDamageableObjects, layerEnemies, layerPlayer;
+    private int extrajumps = 1, platformsLayer, wallsLayer, layerDamageableObjects, layerEnemies, layerPlayer; //Layers references
     private Vector3 playerScale; // Local scale of the player used for flipping
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
-    public Animator animator;
+    public Animator animator;  // Animator reference
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
-    public KeyCode jumpKey, dashKey, attackKey, castKey;
-    public AudioSource attackSound, dashSound,castSound;
+    public KeyCode jumpKey, dashKey, attackKey, castKey; // Keys that make player do thing
+    public AudioSource attackSound, dashSound,castSound; // Sounds player can make
     
     private void Start()
     {
@@ -28,12 +28,12 @@ public class PlayerMovement : MonoBehaviour
         platformsLayer = LayerMask.NameToLayer("Platforms"); // Defines the objects on the Platforms layer 
         wallsLayer = LayerMask.NameToLayer("Walls"); //Defines the objects on the Walls layer
         layerDamageableObjects = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
-        layerEnemies = LayerMask.NameToLayer("Enemies");
-        layerPlayer = LayerMask.NameToLayer("Player");
+        layerEnemies = LayerMask.NameToLayer("Enemies");// Defines the objects on the Enemies layer
+        layerPlayer = LayerMask.NameToLayer("Player");// Defines the objects on the Player layer
         playerScale = player.transform.localScale; // Defines players starting local scale
-        dialogueManager = FindObjectOfType<DialogueManager>();
-        gameObject.transform.position = PlayerStatistics.PlayerRespawnPoint;
-        if (!isFacingRight){
+        dialogueManager = FindObjectOfType<DialogueManager>(); //Finds the script
+        gameObject.transform.position = PlayerStatistics.PlayerRespawnPoint; // sets player to the correct position
+        if (!isFacingRight){//Fix the way player is facing
             playerScale.x = (float)-1.32;
             player.transform.localScale = playerScale;
         }
@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LoadKeys()
     {
+        //Loads the Keybinds
         jumpKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump"));
         dashKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash"));
         attackKey = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack"));
@@ -62,7 +63,8 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, 0);
         }
-        if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { // Checking if the player ground collider is touching anything on the platforms layer
+        // Checking if the player ground collider is touching anything on the platforms layer
+        if (groundCheck.IsTouchingLayers(1 << platformsLayer) || groundCheck.IsTouchingLayers(1 << layerDamageableObjects)) { 
             isGrounded = true;
             animator.SetBool("Grounded", true);
         }
@@ -96,10 +98,8 @@ public class PlayerMovement : MonoBehaviour
                 coyoteTimeCounter -= Time.deltaTime; // Subtracts time from coyote timer
             }
         }
-        if (canWallJump)
-        { // Checking if player can wall jump
-            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(jumpKey))
-            { // Checking if player is next to a wall
+        if (canWallJump){ // Checking if player can wall jump
+            if (playerColision.IsTouchingLayers(1 << wallsLayer) && Input.GetKeyDown(jumpKey)){ // Checking if player is next to a wall
                 isGrounded = true; // Making him grounded = resseting his extra jumps
             }
         }
@@ -132,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
             playerScale.x = (float)-1.32;
             player.transform.localScale = playerScale;
         }
+        //Starts move animation
         if (movement.x != 0)
         {
             animator.SetInteger("Mov_Speed", 1);
@@ -143,11 +144,11 @@ public class PlayerMovement : MonoBehaviour
         //Dash mechanics
         if (Input.GetKeyDown(dashKey)){ // Looking for dash inputs
             if (!isDashing){ // Checking if player is not already dashing 
-                if (isFacingRight){// player.transform.localScale = new Vector3((float)-1.6, 1, 1); // Transforms the player object to represent the slide
+                if (isFacingRight){ // Transforms the player object to represent the slide
                     PlayerRigidBody.AddForce(new Vector2(15, 0), ForceMode2D.Impulse);
                     dashSound.Play();
                 }
-                else{// player.transform.localScale = new Vector3((float)1.6, 1, 1);
+                else{
                     PlayerRigidBody.AddForce(new Vector2(-15, 0), ForceMode2D.Impulse);
                     dashSound.Play();
                 }
@@ -205,8 +206,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerRigidBody.velocity = new Vector2(0, PlayerRigidBody.velocity.y);
         PlayerRigidBody.gravityScale = 4;
     }
-    public void KnockBack(Vector3 position)
-    {
+    public void KnockBack(Vector3 position){
         float distance = gameObject.transform.position.x - position.x;
         ResetVelocity();
         if (distance >= 0)
