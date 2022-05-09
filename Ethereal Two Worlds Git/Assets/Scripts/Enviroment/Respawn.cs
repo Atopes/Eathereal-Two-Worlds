@@ -30,6 +30,9 @@ public class Respawn : MonoBehaviour {
     public void RespawnPlayer() {
         FindObjectOfType<PlayerMovement>().ResetVelocity();
         player.transform.position = PlayerStatistics.PlayerRespawnPoint; // Changes players current location
+        PlayerPrefs.SetFloat("RespawnX", player.transform.position.x);
+        PlayerPrefs.SetFloat("RespawnY", player.transform.position.y);
+        PlayerPrefs.Save();
         PlayerMovement.canMove=true;
         StartCoroutine(healBugFix()); // Sets players hp to maximum
         particles.Play(); // Starts the particle effect
