@@ -20,6 +20,7 @@ public class SliderFix : MonoBehaviour
         if (playerMovement.playerColision.IsTouching(colliderArea))
         {
             respawn.SliderFix();
+            Destroy(gameObject);
         }   
     }
 }
