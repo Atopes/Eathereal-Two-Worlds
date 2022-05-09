@@ -121,6 +121,7 @@ public class MainMenuScript : MonoBehaviour
         int fullScreen = PlayerPrefs.GetInt("Fullscreen");
         int screenWidth = PlayerPrefs.GetInt("Width");
         int screenHeight = PlayerPrefs.GetInt("Height");
+
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("FullScreen", fullScreen);
         PlayerPrefs.SetInt("Width", screenWidth);
