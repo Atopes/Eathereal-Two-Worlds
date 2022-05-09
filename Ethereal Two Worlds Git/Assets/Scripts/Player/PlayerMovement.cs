@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D colliderC; // Collider that gets referenced upon attacking - internal
     public Animator animator;
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
-    private KeyCode jumpKey, dashKey, attackKey, castKey;
+    public KeyCode jumpKey, dashKey, attackKey, castKey;
     
     private void Start()
     {
@@ -254,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
     }
     IEnumerator Shoot()
     { // Shooting timer 
-        yield return new WaitForSecondsRealtime((float)0.5);
+        yield return new WaitForSecondsRealtime((float)1);
         isShooting = false;
     }
     IEnumerator Slash() {
