@@ -9,6 +9,7 @@ public class EndFlagNext : MonoBehaviour
     public BoxCollider2D PlayerCollider;
     public float nextXposition, nextYposition;
     private Respawn respawn;
+    public AudioSource soundtrack;
     private void Start()
     {
         respawn = FindObjectOfType<Respawn>();
@@ -20,6 +21,7 @@ public class EndFlagNext : MonoBehaviour
             PlayerPrefs.SetFloat("RespawnY", nextYposition);
             PlayerPrefs.SetInt("Coins", PlayerStatistics.coins);
             PlayerPrefs.SetInt("CurrHP", PlayerStatistics.currentHP);
+            UIController.soundtrackTime = soundtrack.time;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //Loads in next scene , cen be re-done to open some sort of menu
             respawn.RespawnPlayer();
         }
