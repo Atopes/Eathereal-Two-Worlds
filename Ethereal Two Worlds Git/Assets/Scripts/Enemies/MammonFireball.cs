@@ -12,10 +12,12 @@ public class MammonFireball : MonoBehaviour
     private PlayerMovement playerMovement;
     private bool initiated = false;
     private int layerEnemies,layerWalls;
+    private AudioSource hitSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        hitSound = GameObject.FindGameObjectWithTag("HitSound").GetComponent<AudioSource>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         playerStatistics =FindObjectOfType<PlayerStatistics>();
         playerMovement = FindObjectOfType<PlayerMovement>();
@@ -34,6 +36,7 @@ public class MammonFireball : MonoBehaviour
         direction.Normalize();
         movement = direction;
        if (playerMovement.playerColision.IsTouching(fireballColision)){ //Checking for collision 
+            hitSound.Play();
             FindObjectOfType<PlayerMovement>().KnockBack(gameObject.transform.position);
             StartCoroutine(DamageOverTIme()); // Starting Coroutine for taking dmg over time
             Destroy(gameObject);

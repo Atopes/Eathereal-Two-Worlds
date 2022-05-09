@@ -118,6 +118,7 @@ MonoBehaviour:
   coinCollision: {fileID: 180392727604248777}
   playerStatistics: {fileID: 5377627306360508745, guid: 9f7ec1486b5924547b9909ef89171695, type: 3}
   moneyAmount: 1
+  collectSound: {fileID: 4161492717804859495, guid: 8824a7d8970755f408a6c08b110828ef, type: 3}
 --- !u!95 &4415037099705080224
 Animator:
   serializedVersion: 4

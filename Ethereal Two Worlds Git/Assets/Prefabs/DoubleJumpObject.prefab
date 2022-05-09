@@ -114,5 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1151558f8359ec342b13c46a964c1fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
   objectCollider: {fileID: 341619339180702078}
+  collectSound: {fileID: 4161492717804859495, guid: 8824a7d8970755f408a6c08b110828ef, type: 3}

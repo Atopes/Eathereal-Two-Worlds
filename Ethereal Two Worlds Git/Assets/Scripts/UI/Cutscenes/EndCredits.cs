@@ -10,6 +10,7 @@ public class EndCredits : MonoBehaviour
     public BoxCollider2D triggerArea, playerCollider;
     public GameObject prompt;
     private bool isPrompUp = false;
+    public AudioSource soundtrack, piano;
 
     private KeyCode interactKey;
 
@@ -29,6 +30,8 @@ public class EndCredits : MonoBehaviour
             }
             if (Input.GetKeyDown(interactKey))
             {
+                soundtrack.Stop();
+                piano.Play();
                 playableDirector.Play();
                 PlayerMovement.canMove = false;
                 StartCoroutine(waitForCutscene());

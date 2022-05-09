@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public CircleCollider2D playerMeleeCollider;//Reference to the players melee attack hitbox
     public KeyCode jumpKey, dashKey, attackKey, castKey;
+    public AudioSource attackSound, dashSound,castSound;
     
     private void Start()
     {
@@ -140,19 +141,15 @@ public class PlayerMovement : MonoBehaviour
             animator.SetInteger("Mov_Speed", 0);
         }
         //Dash mechanics
-        if (Input.GetKeyDown(dashKey))
-        { // Looking for dash inputs
-            if (!isDashing)
-            { // Checking if player is not already dashing 
-                if (isFacingRight)
-                {
-                    // player.transform.localScale = new Vector3((float)-1.6, 1, 1); // Transforms the player object to represent the slide
+        if (Input.GetKeyDown(dashKey)){ // Looking for dash inputs
+            if (!isDashing){ // Checking if player is not already dashing 
+                if (isFacingRight){// player.transform.localScale = new Vector3((float)-1.6, 1, 1); // Transforms the player object to represent the slide
                     PlayerRigidBody.AddForce(new Vector2(15, 0), ForceMode2D.Impulse);
+                    dashSound.Play();
                 }
-                else
-                {
-                    // player.transform.localScale = new Vector3((float)1.6, 1, 1);
+                else{// player.transform.localScale = new Vector3((float)1.6, 1, 1);
                     PlayerRigidBody.AddForce(new Vector2(-15, 0), ForceMode2D.Impulse);
+                    dashSound.Play();
                 }
                 DashParticle.Play(); // Initiates the dash paticle
                 PlayerRigidBody.gravityScale = 0; // Makes player not fall during dash
@@ -162,8 +159,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         // Shooting mechanics
-        if (Input.GetKeyDown(castKey) && !isShooting && canShoot)
-        { //Checking if X is pressed and player can shoot
+        if (Input.GetKeyDown(castKey) && !isShooting && canShoot) { //Checking if X is pressed and player can shoot
             animator.SetTrigger("Cast");
             StartCoroutine(preShootTimer());            
             StartCoroutine(Shoot()); // Starts the shooting timer for when the player can shoot again
@@ -171,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
         IEnumerator preShootTimer()
         {
+            castSound.Play();
             yield return new WaitForSecondsRealtime((float)0.4);
             Instantiate(bulletPrefab, new Vector3(player.gameObject.transform.position.x + ((float)0.5 * playerScale.x), player.gameObject.transform.position.y - (float)1, 1), Quaternion.identity); // Spawns a bullet
             isShooting = true;
@@ -274,8 +271,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 colliderC = Physics2D.OverlapCircle(new Vector3(playerMeleeCollider.transform.position.x - (float)0.6, playerMeleeCollider.transform.position.y, 1), (float)0.1);
             }
-            colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activaates the TakeDamage method on the object that was hit 
+            colliderC.SendMessage("TakeDamage", PlayerStatistics.meleeDamage); // Activates the TakeDamage method on the object that was hit 
         }
+        attackSound.Play();
         playerMeleeCollider.enabled = true;
         isAttacking = true;
     }

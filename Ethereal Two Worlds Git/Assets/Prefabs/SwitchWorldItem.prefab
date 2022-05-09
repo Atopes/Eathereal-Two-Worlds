@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 4169010880244621333}
+  collectSound: {fileID: 4161492717804859495, guid: 8824a7d8970755f408a6c08b110828ef, type: 3}

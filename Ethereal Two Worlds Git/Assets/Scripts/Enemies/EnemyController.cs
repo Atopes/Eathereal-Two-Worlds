@@ -17,7 +17,9 @@ public class EnemyController : MonoBehaviour{
     private bool seenPlayer=false, canAttack = true,canDoDamage=true;
     public Animator animator;
     public GameObject coinPrefab;
+    private AudioSource hitSound;
     void Start() {
+        hitSound = GameObject.FindGameObjectWithTag("HitSound").GetComponent<AudioSource>();
         layerWalls = LayerMask.NameToLayer("Walls");// Defines the objects on the Walls layer 
         layerPlatforms = LayerMask.NameToLayer("Platforms"); //Defines the objects on the Platform layer
         layerDestroyable = LayerMask.NameToLayer("DamageableObjects"); // Defines the objects on the DamageableObjects layer
@@ -37,6 +39,7 @@ public class EnemyController : MonoBehaviour{
             animator.SetBool("Running", false);
         }
         if (enemyCollision.IsTouching(playerCollision) && canDoDamage){ //Checking for collision with player
+            hitSound.Play();
             playerStatistics.gameObject.SendMessage("takeDamage",attackPower); //Deals damage to the player upon collision
         }
         RaycastHit2D hit = Physics2D.Linecast(eye.transform.position, eye.transform.position + (seekDistance*movement.x), 1 << LayerMask.NameToLayer("Player"));

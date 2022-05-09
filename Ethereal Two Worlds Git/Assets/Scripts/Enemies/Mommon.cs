@@ -23,6 +23,7 @@ public class Mommon : MonoBehaviour{
     private Vector3 seekDistance = new Vector3(20f, 0),enemyScale;
     private RaycastHit2D hit;
     private Vector2 movement;
+    public AudioSource doomSound, soundtrack;
 
     private bool isPlayerAttacking = false;
     // Start is called before the first frame update
@@ -42,6 +43,8 @@ public class Mommon : MonoBehaviour{
             started = true;
             resetButton.interactable = false;
             barObject.SetActive(true);
+            soundtrack.Pause();
+            doomSound.Play();
         }if(PlayerStatistics.currentHP == 0){
             started = false;
             otherWorld = false;
@@ -57,6 +60,8 @@ public class Mommon : MonoBehaviour{
             phase2 = false;
             movementSpeed = 5;
             maximumVel = 4;
+            doomSound.Stop();
+            soundtrack.UnPause();
         }
         ///////////////////////MOVEMENT//////////////////////////
         if (started && canMove) {
@@ -145,6 +150,8 @@ public class Mommon : MonoBehaviour{
     IEnumerator WaitForDeath(){
         yield return new WaitForSecondsRealtime((float)0.3);
         barObject.SetActive(false);
+        doomSound.Stop();
+        soundtrack.UnPause();
         isAlive = false;
         resetButton.interactable = true;
         Instantiate(ringPrefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 1), Quaternion.identity);

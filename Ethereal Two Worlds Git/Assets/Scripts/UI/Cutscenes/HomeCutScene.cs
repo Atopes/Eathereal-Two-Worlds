@@ -11,6 +11,8 @@ public class HomeCutScene : MonoBehaviour
     private bool isPrompUp=false;
     private static bool wasCutscenePlayed = false;
 
+    public AudioSource soundTrack, cutsceneMusic;
+
     private KeyCode interactKey;
 
     private void Start()
@@ -25,6 +27,8 @@ public class HomeCutScene : MonoBehaviour
                 isPrompUp = true;    
             }
             if (Input.GetKeyDown(interactKey)){
+                soundTrack.Pause();
+                cutsceneMusic.Play();
                 playableDirector.Play();
                 wasCutscenePlayed = true;
                 PlayerMovement.canMove = false;
@@ -41,5 +45,7 @@ public class HomeCutScene : MonoBehaviour
     IEnumerator waitForCutscene(){
         yield return new WaitForSeconds((float)playableDirector.duration);
         PlayerMovement.canMove = true;
+        cutsceneMusic.Stop();
+        soundTrack.UnPause();
     }
 }
