@@ -11,7 +11,7 @@ public class MammonFireball : MonoBehaviour
     private PlayerStatistics playerStatistics; //Reference to the playerStatistics script
     private PlayerMovement playerMovement;
     private bool initiated = false;
-    private int layerEnemies;
+    private int layerEnemies,layerWalls;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,7 @@ public class MammonFireball : MonoBehaviour
         playerStatistics =FindObjectOfType<PlayerStatistics>();
         playerMovement = FindObjectOfType<PlayerMovement>();
         layerEnemies = LayerMask.NameToLayer("Enemies");
+        layerWalls = LayerMask.NameToLayer("Walls");
         Physics2D.IgnoreLayerCollision(layerEnemies, layerEnemies, true);
         StartCoroutine(LifeCycle());
     }
@@ -37,6 +38,10 @@ public class MammonFireball : MonoBehaviour
             StartCoroutine(DamageOverTIme()); // Starting Coroutine for taking dmg over time
             Destroy(gameObject);
        }   
+       if (fireballColision.IsTouchingLayers(1 << layerWalls))
+        {
+            Destroy(gameObject);
+        }
     }
     private void FixedUpdate(){
         if (initiated){
@@ -56,7 +61,7 @@ public class MammonFireball : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(2);
         initiated = true;
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(4);
         Destroy(gameObject);
     }
 }

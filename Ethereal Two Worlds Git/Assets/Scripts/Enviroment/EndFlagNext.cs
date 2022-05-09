@@ -8,6 +8,11 @@ public class EndFlagNext : MonoBehaviour
     public PolygonCollider2D FlagCollider;
     public BoxCollider2D PlayerCollider;
     public float nextXposition, nextYposition;
+    private Respawn respawn;
+    private void Start()
+    {
+        respawn = FindObjectOfType<Respawn>();
+    }
     void Update(){
         if (PlayerCollider.IsTouching(FlagCollider)){ //Looking for collision with the "flag"
             PlayerStatistics.PlayerRespawnPoint = new Vector3(nextXposition,nextYposition,1);
@@ -16,6 +21,7 @@ public class EndFlagNext : MonoBehaviour
             PlayerPrefs.SetInt("Coins", PlayerStatistics.coins);
             PlayerPrefs.SetInt("CurrHP", PlayerStatistics.currentHP);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //Loads in next scene , cen be re-done to open some sort of menu
+            respawn.RespawnPlayer();
         }
         
     }
