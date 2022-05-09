@@ -44,4 +44,10 @@ public class Respawn : MonoBehaviour {
         playerStatistics.healPlayer(0);
         SetHpToMax();
     }
+    public void SliderFix()
+    {
+        playerStatistics.healPlayer(0);
+        SetHpToMax();
+        Destroy(gameObject);
+    }
 }
