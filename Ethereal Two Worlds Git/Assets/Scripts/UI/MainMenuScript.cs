@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Playables;
+using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MainMenuScript : MonoBehaviour
 {
@@ -11,6 +15,13 @@ public class MainMenuScript : MonoBehaviour
 
     private bool isFullscreen;
     private int width, height;
+    public Slider sliderMusic, sliderSFX;
+    private float sliderValueMusic,slidervalueSFX;
+    public AudioMixerGroup musicGroup,sfxGroup;
+    public AudioSource click;
+
+
+    public PlayableDirector playableDirector;
 
     private void Start()
     {
@@ -58,7 +69,7 @@ public class MainMenuScript : MonoBehaviour
     public void NewGame()
     {
         ResetPrefs();
-        SceneManager.LoadScene("StartCutscene");
+        StartCoroutine(waitForCutscene());
     }
 
     public void LoadGame()
@@ -135,5 +146,25 @@ public class MainMenuScript : MonoBehaviour
         PlayerPrefs.SetInt("ItemBought2", 0);
         PlayerPrefs.SetInt("ItemBought3", 0);
         PlayerPrefs.Save();
+    }
+    public void onSliderValueChangedMusic() 
+    {
+        sliderValueMusic =sliderMusic.value;
+        musicGroup.audioMixer.SetFloat("Music", Mathf.Log10(sliderValueMusic) * 20);
+    }
+    public void onSliderValueChangedSFX()
+    {
+        slidervalueSFX = sliderSFX.value;
+        musicGroup.audioMixer.SetFloat("SFX", Mathf.Log10(sliderValueMusic) * 20);
+    }
+    public void playClick()
+    {
+        click.Play();
+    }
+    IEnumerator waitForCutscene()
+    {
+        playableDirector.Play();
+        yield return new WaitForSeconds((float)playableDirector.duration);
+        SceneManager.LoadScene("TestArea");
     }
 }
